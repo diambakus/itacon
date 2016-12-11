@@ -1,0 +1,2 @@
+insert into customer (customer_id, firstName, lastName, BI, balance, phones) values (1, 'Patrick', 'Borges', '111AAA', 1000000, '19-9111-1111')
+insert into customer (customer_id, firstName, lastName, BI, balance, phones) values (2, 'Fulano', 'Beltrano', '221AAA', 100, '11-9131-1111')

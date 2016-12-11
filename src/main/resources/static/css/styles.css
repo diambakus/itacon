@@ -1,0 +1,174 @@
+.wrapper {
+	margin-top: 80px;
+	margin-bottom: 20px;
+}
+
+/* #e5e6e8*/
+body {
+	background-color: #d5d9e0;
+	font-size: 14px;
+	line-height: 21px;
+	font-family: "OpenSans", Arial, sans-serif;
+}
+
+.form-signin {
+	max-width: 420px;
+	padding: 30px 38px 66px;
+	margin: 0 auto;
+	background-color: #eee;
+	border-radius: 10px;
+	border: 1px solid #c5c5c5;
+}
+
+.form-signin-heading {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.form-control {
+	position: relative;
+	font-size: 16px;
+	height: auto;
+	padding: 10px;
+}
+
+input[type="text"] {
+	margin-bottom: 0px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+input[type="password"] {
+	margin-bottom: 20px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.header {
+	min-height: 80px;
+}
+
+/*Footer stuff*/
+.footer {
+	width: 100%;
+	position: absolute;
+	/* Set the fixed height of the footer here */
+	min-height: 20px;
+	background-color: #a8aeb7;
+	bottom: 0px;
+	height: 60px;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+.container .text-muted {
+	margin: 20px 0;
+}
+
+.footer>.container {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+code {
+	font-size: 80%;
+}
+
+.content, .sidebar {
+	min-height: 300px;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+	border: 0;
+	top: 20px;
+}
+
+/* *********** */
+/* Top Nav bar */
+/* *********** */
+#intro {
+	width: 100%;
+	background-color: #19283f;
+}
+
+h2.textintro {
+	color: #cbd0d8;
+	text-align: center;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+/* ********************* */
+/* Nav bar customization */
+/* ********************* */
+.custom-navbar {
+	background-color: #a8aeb7;
+	color: #7ba4e5;
+	margin-bottom: 10px;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover,
+	.navbar-default .navbar-nav>.active>a:focus {
+	color: #FFF;
+	background-color: #0e62ea;
+	font-style: bold;
+}
+
+/* ************** */
+/* Side bar       */
+/* ************** */
+.nav-sidebar>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus
+	{
+	color: #7ba4e5;
+	background-color: #428bca;
+}
+
+.sidebar {
+	cursor: pointer;
+	padding-top: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-bottom: 0px;
+	margin-right: 21px;
+	border-radius: 10px;
+	border: 1px solid #a8aeb7;
+}
+
+.nav-sidebar {
+	margin-bottom: 0px;
+}
+
+.nav-sidebar>li>a {
+	padding-right: 10px;
+	padding-left: 10px;
+	color: #444;
+	font-size: 12px;
+}
+
+.formcssbody {
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #c5c5c5;
+}
+
+/*Button styles*/
+.btn-default-custom {
+	background: #fff;
+	border: 1px solid #4286f4;
+}
+
+.btn-default-custom:hover {
+	background: #d2d8e0;
+	border: 1px solid #4286f4;
+}
+
+/*Phone number search box*/
+/* This creates the space above and below the search box */
+ .row.search {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

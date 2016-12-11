@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="crudscreen">
+		<div class="fluid-container">
+			<div class="row">
+				<div class="col-xs-12 col-dm-12 col-sm-12 col-lg-12">
+					<div class="pull-right">
+						<button type="button" class="btn btn-primary btn-md"
+							data-toggle="modal" data-target="#newServiceUserFormModal">Cadastrar
+							utente</button>
+						<div id="newServiceUserFormModal" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">modal header</h4>
+									</div>
+									<div class="modal-body">
+										<p>Textoooooooooo!</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">fechar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				
+			<div class="search">
+            <div class="col-md-8 col-md-offset-2">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label class="sr-only" for="">Telefone</label>
+                        <input type="search" class="form-control" id="k" name="k" placeholder="Digite o telefone"/>
+                        <input id="cn" name="cn" type="hidden" value="false" />
+                    </div>
+                    <button type="submit" id="s" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>
+                    </button> <a href="#">Ajuda</a>
+                </form>
+            </div>
+        </div>
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>

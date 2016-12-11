@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="top">
+		<div class="row">
+
+			<nav class="navbar navbar-default custom-navbar" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">ITACON</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-left">
+						<li class="active"><a href="#"><span
+								class="glyphicon glyphicon-home"></span> Dashboard </a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+
+						<li><a href="#"> Relatórios</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-stats"></span>
+								Gráficos</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-export"></span>
+								Exportar dados</a></li>
+						<li><a href="#"><span
+								class="glyphicon glyphicon-user"></span> Perfil</a></li>		
+						<li class="dropdown"><a href="#" data-toggle="dropdown"
+							class="dropdown-toggle"><span
+								class="glyphicon glyphicon-wrench"></span> Configurações<b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Idioma</a></li>
+								<li><a href="#"><span
+								class="glyphicon glyphicon-question-sign"></span> Ajuda</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+</body>
+</html>
