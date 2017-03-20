@@ -21,21 +21,21 @@
 
 	<div class="container-fluid">
 
-
 		<div class="container-fluid text-center">
 			<div class="row">
 				<div class="dynamic-content text-left">
 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 fixed">
 						<div th:include="sidebar :: seller_menu_customer_items"></div>
 					</div>
-					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 scrollit">
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 scrollit" id="listupdate">
 						<div th:include="customers :: customers"></div>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<div th:include="customer :: customer_search"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-
 		<div class="row">
 			<div th:include="headernfooter :: footer"></div>
 		</div>

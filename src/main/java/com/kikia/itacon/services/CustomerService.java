@@ -6,9 +6,9 @@ public interface CustomerService {
 
 	Iterable<Customer> listAllCustomers();
 
-	Customer getCustomerById(Long id);
+	Customer getCustomerById(Long Id);
 
 	Customer saveCustomer(Customer customer);
 
-	void deleteCustomer(Long id);
+	void deleteCustomer(Long Id);
 }

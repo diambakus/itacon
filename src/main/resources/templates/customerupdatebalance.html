@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>ITACON - venda eletrônico de serviços públicos</title>
+<title>Create customer</title>
 <link
 	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
@@ -26,10 +26,14 @@
 			<div class="row">
 				<div class="dynamic-content text-left">
 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 fixed">
-						<div th:include="sidebar :: seller_menu_customer_items"></div>
+						<div th:include="sidebar :: seller_menu"></div>
 					</div>
-					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 scrollit">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 scrollit" id="listupdate">
 						<div th:include="customers :: customers"></div>
+					</div>
+
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fixed">
+						<div th:include="customer :: customer_update_balance"></div>
 					</div>
 				</div>
 			</div>
@@ -40,7 +44,7 @@
 			<div th:include="headernfooter :: footer"></div>
 		</div>
 	</div>
-	<div th:include="includes :: javascript_libs"></div>
+	<div th:include="includes::javascript_libs"></div>
 
 </body>
 </html>

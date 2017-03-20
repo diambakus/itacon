@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="customers">
+		<div class="container-fluid">
+			<h4 class="text-center">Utentes</h4>
+			<table id="customers" class="table table-striped">
+				<thead>
+					<tr>
+						<th style="width: 150px;">Nome</th>
+						<th>BI</th>
+						<th style="width: 120px">Telefone</th>
+						<th>Saldo disponível</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:if="${#lists.isEmpty(customers)}">
+						<td style="color: green">Sem registros</td>
+					</tr>
+					<tr th:each="customer : ${customers}">
+						<td th:text="*{customer.firstName +' '+ customer.lastName}"/>
+						<td th:text="*{customer.BI}"/>
+						<td th:text="*{customer.phone}"/>
+						<td th:text="*{customer.balance}"/>	
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

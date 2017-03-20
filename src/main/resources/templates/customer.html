@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="customer_register_form">
+		<div class="panel panel-info customized_panel">
+			<div class="panel-heading">Cadastrar utente</div>
+			<div class="panel-body">
+				<form role="form" th:object="${customer}"
+					th:modelAttribute="customer" th:action="@{/customer/register}"
+					method="post">
+					<input type="hidden" th:field="*{Id}" />
+					<!-- First name and last name -->
+					<div class="row">
+						<div class="col-sm-5 col-dm-5 col-xs-12 col-lg-5">
+							<div class="form-group">
+								<label class="control-label">Nome</label> <input type="text"
+									th:field="*{firstName}" placeholder="Inserir o nome.."
+									class="form-control" />
+							</div>
+						</div>
+						<div class="col-sm-5 col-dm-5 col-xs-12 col-lg-5">
+							<div class="form-group">
+								<label class="control-label">Sobrenome</label> <input
+									type="text" th:field="*{lastName}"
+									placeholder="Inserir o sobrenome.." class="form-control" />
+							</div>
+						</div>
+					</div>
+					<!--  -->
+					<div class="row">
+						<div class="col-sm-8 col-dm-8 col-xs-12 col-lg-8">
+							<div class="form-group">
+								<label class="control-label">Bilhete de identidade</label> <input
+									type="text" th:field="*{BI}"
+									placeholder="Inserir bilhete de identidade.."
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-8 col-dm-8 col-xs-8 col-lg-8">
+							<div class="form-group">
+								<label class="control-label">Nº de Telefone</label> <input
+									type="text" th:field="*{phone}" placeholder="(ex. 96633333)"
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 col-dm-6 col-xs-6 col-lg-6">
+							<div class="form-group">
+								<label class="sr-only" for="currency_input">Montante (em
+									Franco CFA)</label>
+								<p id="demo"></p>
+								<div class="input-group">
+									<div class="input-group-addon">$</div>
+									<input type="text" th:field="*{balance}" id="currency_input"
+										class="form-control" placeholder="" />
+									<div class="input-group-addon">.00</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="controls col-md-8">
+							<button type="reset" class="btn btn-primary">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="customer_update_balance">
+		<div class="panel panel-info customized_panel">
+			<div class="panel-heading">Valor de recarga</div>
+			<div class="panel-body">
+				<form id="update_balance_form" class="form-inline" role="form"
+					th:action="@{/customer/{Id}/updatebalance(Id=${Id})}" method="post">
+					<input type="hidden" th:field="*{Id}" />
+					<div class="form-group">
+						<label class="sr-only" for="currency_input">Montante (em
+							Franco CFA)</label>
+						<p id="demo"></p>
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<input type="text" id="currency_input" name="recharge_amount"
+								class="form-control" placeholder="" />
+							<div class="input-group-addon">.00</div>
+						</div>
+					</div>
+					<button type="reset" class="btn btn-primary">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Atualizar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:fragment="customer_search">
+		<div class="panel panel-info customized_panel">
+			<div class="panel-heading">Busca utente</div>
+			<div class="panel-body">
+				<form id="customer_search_form" class="form-inline" role="form">
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" id="queriedcustomer" name="queriedcustomer"
+								class="form-control" placeholder="Bilhete de identidade" />
+						</div>
+					</div>
+					<br />
+					<div class="input-group">
+						<button type="button" onclick="findCustomer()" class="btn btn-primary">Buscar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	<div th:include="includes::javascript_libs"></div>
+</body>
+</html>

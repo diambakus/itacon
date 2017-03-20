@@ -3,14 +3,14 @@
 	margin-bottom: 20px;
 }
 
-/* #e5e6e8*/
 body {
-	background-color: #d5d9e0;
+	background-color: white;
 	font-size: 14px;
 	line-height: 21px;
 	font-family: "OpenSans", Arial, sans-serif;
 }
 
+/*LOGIN SCREEN*/
 .form-signin {
 	max-width: 420px;
 	padding: 30px 38px 66px;
@@ -49,14 +49,14 @@ input[type="password"] {
 }
 
 /*Footer stuff*/
-.footer {
-	width: 100%;
+footer {
 	position: absolute;
-	/* Set the fixed height of the footer here */
-	min-height: 20px;
-	background-color: #a8aeb7;
-	bottom: 0px;
+	bottom: 0;
+	background-color: #7c8696;
+	color: white;
+	padding: 15px;
 	height: 60px;
+	width: 100%;
 }
 
 /* Custom page CSS
@@ -83,11 +83,25 @@ code {
  * Top navigation
  * Hide default border to remove 1px line.
  */
-.navbar-fixed-top {
-	border: 0;
-	top: 20px;
+.navbar-brand {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: 0;
+	text-align: center;
+	margin: auto;
 }
 
+.navbar-toggle {
+	z-index: 3;
+}
+
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+	padding-top: 50px;
+	background-color: #000080;
+}
 /* *********** */
 /* Top Nav bar */
 /* *********** */
@@ -155,6 +169,28 @@ h2.textintro {
 	border: 1px solid #c5c5c5;
 }
 
+/*CONTENT MAIN AREA*/
+.dynamic-content {
+	margin-bottom: 60px;
+	margin-left: 50px;
+	margin-right: 50px;
+	/*border: 1px solid #7c8696;*/
+}
+
+.fixed {
+	height: 450px;
+	overflow: hidden;
+	/*border-right: 1px solid #7c8696;*/
+	/*background: orange;*/
+}
+
+.scrollit {
+	height: 450px;
+	overflow-y: scroll;
+	/*border-right: 1px solid #7c8696;*/
+	/*background: lightgray;*/
+}
+
 /*Button styles*/
 .btn-default-custom {
 	background: #fff;
@@ -166,9 +202,22 @@ h2.textintro {
 	border: 1px solid #4286f4;
 }
 
+.btn-group-vertical>button {
+	margin-bottom: 10px;
+	border-radius: 10px !important;
+}
+
 /*Phone number search box*/
 /* This creates the space above and below the search box */
- .row.search {
-    padding-top: 20px;
-    padding-bottom: 20px;
+.row.search {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.bluecolored {
+	color: #0e62ea;
+}
+
+.customized_panel {
+	margin-top: 5px;
 }
