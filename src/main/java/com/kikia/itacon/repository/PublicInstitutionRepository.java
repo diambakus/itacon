@@ -1,4 +1,4 @@
-package com.kikia.itacon.repositories;
+package com.kikia.itacon.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

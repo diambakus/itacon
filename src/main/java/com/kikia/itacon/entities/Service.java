@@ -1,10 +1,14 @@
 package com.kikia.itacon.entities;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +24,8 @@ public class Service extends BasicEntity {
 	private String code;
 	private BigDecimal price;
 	private PublicInstitution publicInstitution;
+	@OneToMany(mappedBy="service", cascade=CascadeType.ALL)
+	Set<User> users = new HashSet<User>();
 
 	public Service(String name) {
 		this.name = name;
@@ -62,5 +68,13 @@ public class Service extends BasicEntity {
 
 	public void setPublicInstitution(PublicInstitution publicInstitution) {
 		this.publicInstitution = publicInstitution;
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 }

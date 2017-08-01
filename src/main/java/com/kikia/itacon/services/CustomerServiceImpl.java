@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kikia.itacon.entities.Customer;
-import com.kikia.itacon.repositories.CustomerRepository;
+import com.kikia.itacon.repository.CustomerRepository;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -24,6 +24,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer getCustomerById(Long id) {
 		return customerRepository.findOne(id);
+	}
+	
+	
+	public Customer getCustomerByNIF(Long NIF) {
+		return customerRepository.findOne(NIF);
 	}
 
 	@Override

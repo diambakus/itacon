@@ -1,5 +1,5 @@
-.wrapper {
-	margin-top: 80px;
+.wrapper { /*Used on first page to offset form-signin*/
+	margin-top: 90px;
 	margin-bottom: 20px;
 }
 
@@ -10,9 +10,9 @@ body {
 	font-family: "OpenSans", Arial, sans-serif;
 }
 
-/*LOGIN SCREEN*/
+/*external wrapper of login and registration screen*/
 .form-signin {
-	max-width: 420px;
+	max-width: 520px;
 	padding: 30px 38px 66px;
 	margin: 0 auto;
 	background-color: #eee;
@@ -34,14 +34,16 @@ body {
 
 input[type="text"] {
 	margin-bottom: 0px;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
 input[type="password"] {
 	margin-bottom: 20px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
 .header {
@@ -108,6 +110,48 @@ code {
 #intro {
 	width: 100%;
 	background-color: #19283f;
+}
+
+.firstdiv {
+	display: none;
+}
+
+.navbar-top {
+	background: #4D5061;
+	border-bottom: 4px solid #60B078;
+	color: #FFF;
+}
+
+.text-white {
+	color: #fff;
+}
+
+.navbar-doublerow>.navbar {
+	display: block;
+	padding: 0px auto;
+	margin: 0px auto;
+	min-height: 25px;
+}
+
+/*Down nav*/
+.navbar-doublerow {
+	/*navbar brand*/
+	padding: 0px auto;
+	float: left;
+	color: #60B078;
+	font-size: 30px;
+}
+
+.navbar-doublerow  ul>li>a {
+	/*Menu items*/
+	font-size: 15px;
+	color: #000;
+}
+
+.navbar-doublerow ul>li>a:hover {
+	/*menu hover*/
+	border-bottom: 1px solid #60B078;
+	color: #60B078;
 }
 
 h2.textintro {
@@ -220,4 +264,14 @@ h2.textintro {
 
 .customized_panel {
 	margin-top: 5px;
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
 }

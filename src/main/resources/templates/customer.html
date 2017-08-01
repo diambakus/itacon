@@ -30,11 +30,20 @@
 					</div>
 					<!--  -->
 					<div class="row">
-						<div class="col-sm-8 col-dm-8 col-xs-12 col-lg-8">
+						<div class="col-sm-5 col-dm-5 col-xs-12 col-lg-5">
 							<div class="form-group">
 								<label class="control-label">Bilhete de identidade</label> <input
 									type="text" th:field="*{BI}"
 									placeholder="Inserir bilhete de identidade.."
+									class="form-control" />
+							</div>
+						</div>
+						
+						<div class="col-sm-5 col-dm-5 col-xs-12 col-lg-5">
+							<div class="form-group">
+								<label class="control-label">Nº de IF</label> <input
+									type="number" th:field="*{NIF}"
+									placeholder="Inserir número de identificação fiscal.."
 									class="form-control" />
 							</div>
 						</div>
@@ -44,7 +53,7 @@
 						<div class="col-sm-8 col-dm-8 col-xs-8 col-lg-8">
 							<div class="form-group">
 								<label class="control-label">Nº de Telefone</label> <input
-									type="text" th:field="*{phone}" placeholder="(ex. 96633333)"
+									type="tel" th:field="*{phone}" placeholder="(ex. 96633333)"
 									class="form-control" />
 							</div>
 						</div>
@@ -104,16 +113,25 @@
 		<div class="panel panel-info customized_panel">
 			<div class="panel-heading">Busca utente</div>
 			<div class="panel-body">
-				<form id="customer_search_form" class="form-inline" role="form">
-					<div class="form-group">
-						<div class="input-group">
-							<input type="text" id="queriedcustomer" name="queriedcustomer"
-								class="form-control" placeholder="Bilhete de identidade" />
+				<form id="customer_search_form" role="form">
+					<div class="row">
+						<div class="col-sm-11 col-dm-11 col-xs-11 col-lg-11">
+							<div class="form-group">
+								<div class="input-group">
+									<input type="number" id="queriedcustomer" name="queriedcustomer"
+										class="form-control" placeholder="NIF" />
+								</div>
+							</div>
 						</div>
 					</div>
-					<br />
-					<div class="input-group">
-						<button type="button" onclick="findCustomer()" class="btn btn-primary">Buscar</button>
+
+					<div class="form-group">
+						<div class="input-group">
+							<div class="controls">
+								<button type="reset" onclick="findCustomer()"
+									class="btn btn-primary">Buscar</button>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>

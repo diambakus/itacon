@@ -17,6 +17,7 @@ public class Customer extends BasicEntity {
 	private String BI;
 	private BigDecimal balance;
 	private String phone;
+	private Long NIF;
 
 
 	public String getFirstName() {
@@ -60,11 +61,20 @@ public class Customer extends BasicEntity {
 		this.phone = phone;
 	}
 	
+	public Long getNIF() {
+		return NIF;
+	}
+
+	public void setNIF(Long nIF) {
+		NIF = nIF;
+	}
+
 	public Customer() {
 		firstName = null;
 		lastName = null;
 		BI = null;
 		balance = new BigDecimal("0.0");
 		phone = null;
+		NIF = 0L;
 	}
 }

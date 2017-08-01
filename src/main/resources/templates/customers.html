@@ -9,7 +9,8 @@
 				<thead>
 					<tr>
 						<th style="width: 150px;">Nome</th>
-						<th>BI</th>
+<!-- 						<th>BI</th> -->
+<!-- 						<th>NIF</th> -->
 						<th style="width: 120px">Telefone</th>
 						<th>Saldo disponível</th>
 					</tr>
@@ -21,7 +22,8 @@
 					</tr>
 					<tr th:each="customer : ${customers}">
 						<td th:text="*{customer.firstName +' '+ customer.lastName}"/>
-						<td th:text="*{customer.BI}"/>
+<!-- 						<td th:text="*{customer.BI}"/> -->
+<!-- 						<td th:text="*{customer.NIF}"/> -->
 						<td th:text="*{customer.phone}"/>
 						<td th:text="*{customer.balance}"/>	
 					</tr>
