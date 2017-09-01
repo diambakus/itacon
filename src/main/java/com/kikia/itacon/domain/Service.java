@@ -1,32 +1,44 @@
-package com.kikia.itacon.entities;
+package com.kikia.itacon.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "service")
-public class Service extends BasicEntity {
+public class Service implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5248273079563923850L;
-
+    private Long id;
 	private String name;
 	private String code;
 	private BigDecimal price;
 	private PublicInstitution publicInstitution;
-	@OneToMany(mappedBy="service", cascade=CascadeType.ALL)
-	Set<User> users = new HashSet<User>();
+	
 
+
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getId() {
+		return id;
+	}
+	
 	public Service(String name) {
 		this.name = name;
 	}
@@ -60,21 +72,13 @@ public class Service extends BasicEntity {
 		this.price = price;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "public_service_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "public_institution_id")
 	public PublicInstitution getPublicInstitution() {
 		return publicInstitution;
 	}
 
 	public void setPublicInstitution(PublicInstitution publicInstitution) {
 		this.publicInstitution = publicInstitution;
-	}
-
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
 	}
 }

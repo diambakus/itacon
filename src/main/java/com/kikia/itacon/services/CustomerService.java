@@ -1,6 +1,6 @@
 package com.kikia.itacon.services;
 
-import com.kikia.itacon.entities.Customer;
+import com.kikia.itacon.domain.Customer;
 
 public interface CustomerService {
 

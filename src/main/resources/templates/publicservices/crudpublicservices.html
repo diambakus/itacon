@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="createpublicservice">
+		<div class="panel panel-info customized_panel">
+			<div class="panel-heading">Cadastrar serviços públicos</div>
+			<div class="panel-body">
+				<form role="form" th:object="${publicservice}"
+					th:modelAttribute="" th:action="@{/publicservices/publicservicecreation}"
+					method="post">
+					<input type="hidden" th:field="*{Id}" />
+					<!-- First name and last name -->
+					<div class="row">
+						<div class="col-sm-5 col-dm-5 col-xs-12 col-lg-5">
+							<div class="form-group">
+								<label class="control-label">Nome</label> <input type="text"
+									th:field="*{name}" placeholder="Inserir o nome.."
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="controls col-md-8">
+							<button type="reset" class="btn btn-primary">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:include="includes::javascript_libs"></div>
+</body>
+</html>

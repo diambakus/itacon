@@ -8,7 +8,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
 
 /**
  * It provides current loggedin user and auto login user after registering an
@@ -17,22 +16,29 @@ import org.springframework.stereotype.Service;
  * @author diambakus
  *
  */
-@Service
+//@Service
 public class SecurityServiceImpl implements SecurityService {
 
-	@Autowired
 	private AuthenticationManager authenticationManager;
-
-	@Autowired
 	private UserDetailsService userDetailsService;
 
 	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
+	
+	@Autowired
+	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+		this.authenticationManager = authenticationManager;
+	}
+	
+	@Autowired
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
 	@Override
 	public String findLoggedInUsername() {
 
 		Object userDetails = SecurityContextHolder.getContext().getAuthentication();
-		logger.info("MINHA LOG " + userDetails.toString());
+		logger.info("42 MINHA LOG " + userDetails.toString());
 
 		if (userDetails instanceof UserDetails)
 			return ((UserDetails) userDetails).getUsername();
@@ -43,7 +49,7 @@ public class SecurityServiceImpl implements SecurityService {
 	public void autologin(String username, String password) {
 
 		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-		logger.info("MINHA LOG " + userDetails.toString());
+		logger.info(" 53 MINHA LOG " + userDetails.toString());
 
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 				userDetails, password, userDetails.getAuthorities());

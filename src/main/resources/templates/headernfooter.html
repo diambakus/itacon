@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <body>
 	<div th:fragment="headers">
 		<nav class="navbar navbar-inverse navbar-fixed-top"
@@ -30,24 +31,69 @@
 					</button>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav" style="margin-left:50px;">
-					
+					<ul class="nav navbar-nav" style="margin-left: 50px;">
+
 						<li class="active"><a th:href="@{/dashboard}"><span
 								class="glyphicon glyphicon-home"></span> Dashboard</a></li>
-						<li><a th:href="@{/customerslist}">Utentes
-								&amp; Saldos</a></li>
-						<li><a th:href="@{/publicservices/}">Serviços</a></li><!-- @{/services} -->		
+						<li><a th:href="@{/customerslist}">Utentes &amp; Saldos</a></li>
+						<li><a th:href="@{/publicservices/}">Serviços</a></li>
 
-						
-						
+						<li sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')">
+								<a th:href="@{/dashboard/admin/users}">Usuários</a>
+						</li>
+
+
+
+
+
 					</ul>
-					<ul class="nav navbar-nav navbar-right" style="margin-right:50px;">
-					    <li class="dropdown"><a href="#" data-toggle="dropdown"
-							class="dropdown-toggle"><span
-								class="glyphicon glyphicon-user"></span> Perfil<b
-								class="caret"></b></a>
+					<ul class="nav navbar-nav navbar-right" style="margin-right: 50px;">
+
+
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <span
+								class="glyphicon glyphicon-user"></span>  <strong>Nome
+									do usuário</strong> <span class="glyphicon glyphicon-chevron-down"></span>
+						</a>
 							<ul class="dropdown-menu">
-								<li><a th:href="@{/logout}">Sair</a></li>
+								<li>
+									<div class="navbar-login">
+										<div class="row">
+											<div class="col-lg-4">
+												<p class="text-center">
+													<span class="glyphicon glyphicon-user icon-size"></span>
+												</p>
+											</div>
+											<div class="col-lg-8">
+												<p class="text-left">
+													<strong>Nome completo</strong>
+												</p>
+												<p class="text-left small">E-mail</p>
+												<p class="text-left">
+													<a href="#" class="btn btn-primary btn-block btn-sm">Dados
+														pessoal</a>
+												</p>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<div class="navbar-login navbar-login-session">
+										<div class="row">
+											<div class="col-lg-12">
+												<form th:action="@{/logout}" method="post">
+													<input type="hidden" name="${_csrf.parameterName}"
+														value="${_csrf.token}" />
+
+													<button class="btn btn-link btn-sm btn-default-custom "
+														type="submit">Sair</button>
+												</form>
+
+											</div>
+										</div>
+									</div>
+								</li>
 							</ul></li>
 						<li><a href="#">Sobre o projeto</a></li>
 						<li><a href="#">Contatos</a></li>
@@ -56,10 +102,12 @@
 			</div>
 		</nav>
 	</div>
-	
+
 	<div th:fragment="footer">
-		<footer class="text-center">
-			<p>&copy; 2016 Kikia Technologies</p>
+		<footer class="navbar-fixed-bottom text-center">
+			<div class="container">
+				<p>&copy; 2016 Kikia Technologies</p>
+			</div>
 		</footer>
 	</div>
 	<!-- Bootstrap core JavaScript

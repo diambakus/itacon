@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="publicservices">
+		<div class="container-fluid">
+			<h4 class="text-center">Lista de ministérios públicos</h4>
+			<table id="publicservicetable" class="table table-striped">
+				<thead>
+					<tr>
+						<th style="width: 150px;">Código</th>
+						<th>Nome</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:if="${#lists.isEmpty(publicservices)}">
+						<td style="color: green">Sem registros</td>
+					</tr>
+					<tr th:each="publicservice : ${publicservices}">
+						<td th:text="*{publicservice.code}"/>
+						<td th:text="*{publicservice.name}"/>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

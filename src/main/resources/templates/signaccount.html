@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<body>
+	|
+	<div th:fragment="header">
+		<nav
+			class="navbar-default navbar-doublerow navbar-trans navbar-fixed-top">
+			<!-- top nav -->
+			<nav class="navbar-top">
+				<div class="container">
+					<!-- left nav top -->
+					<ul class="nav navbar-nav pull-left">
+
+					</ul>
+					<!-- right nav top -->
+					<ul class="nav navbar-nav pull-right" style="padding: 9px;">
+						<li><a th:href="@{/login}">Sign In</a></li>
+						<li><a th:href="@{/registration}">Sign up</a></li>
+					</ul>
+				</div>
+			</nav>
+		</nav>
+	</div>
+</body>
+</html>

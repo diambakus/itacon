@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<!-- registering Customer, public department and public service -->
+	<div th:fragment="sidebar">
+		<h4 class="text-center">Tarefas</h4>
+		<br />
+		<div class="list-group">
+			<a th:href="@{/publicservices/create}"
+				class="list-group-item list-group-item-action">Repartição Pública</a> 
+				<a th:href="@{/undefined}"
+				class="list-group-item list-group-item-action">Serviço Público</a>
+		</div>
+	</div>
+</body>
+</html>

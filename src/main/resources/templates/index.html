@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -17,119 +17,14 @@
 </head>
 
 <body>
-
-	<nav
-		class="navbar-default navbar-doublerow navbar-trans navbar-fixed-top">
-		<!-- top nav -->
-		<nav class="navbar-top">
-			<div class="container">
-				<!-- left nav top -->
-				<ul class="nav navbar-nav pull-left">
-
-				</ul>
-				<!-- right nav top -->
-				<ul class="nav navbar-nav pull-right" style="padding: 9px;">
-					<li><a href="#login">Sign In</a></li>
-					<li><a href="#registration">Sign up</a></li>
-				</ul>
-			</div>
-		</nav>
-	</nav>
+	<div th:include="signaccount::header"></div>
 
 	<div class="container-fluid">
-		<div class="firstdiv">
-			<div id="welcome">
-				<div class="wrapper">Welcome!</div>
-			</div>
-			<div id="login">
-				<div class="wrapper">
-					<div class="row">
-						<div
-							class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-							<form th:action="@{/dashboard}" method="POST" class="form-signin">
-								<h3 class="form-signin-heading">Acesso</h3>
 
-								<div class="form-group">
-									<input type="text" name="username" id="user_name"
-										class="form-control input-lg"
-										placeholder="Inserir nome de usuário" tabindex="1" />
-								</div>
-								<div class="form-group">
-									<input type="password" name="password" id="password"
-										class="form-control input-lg" placeholder="Inserir senha"
-										tabindex="2" />
-								</div>
-
-								<button class="btn btn-primary btn-block" name="Submit"
-									value="Login" type="Submit">Entrar</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div id="registration">
-				<div class="wrapper">
-					<div class="row">
-						<div
-							class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-							<form role="form"  th:object="${user}"
-								th:modelAttribute="userForm" th:action="@{/registration}"
-								method="POST" class="form-signin">
-								<h2>Cadastrar-se</h2>
-								<hr />
-								<div class="row">
-									<div class="col-xs-12 col-sm-6 col-md-6">
-										<div class="form-group">
-											<input type="text" th:field="*{firstname}" id="first_name"
-												class="form-control input-lg" placeholder="Inserir nome"
-												tabindex="1"/>
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-6 col-md-6">
-										<div class="form-group">
-											<input type="text" th:field="*{lastname}" id="last_name"
-												class="form-control input-lg"
-												placeholder="Inserir sobrenome" tabindex="2" />
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<input type="text" th:field="*{username}" id="user_name"
-										class="form-control input-lg"
-										placeholder="Inserir nome de usuário" tabindex="3" />
-								</div>
-								<div class="form-group">
-									<input type="password" th:field="*{password}" id="password"
-										class="form-control input-lg" placeholder="Inserir senha"
-										tabindex="4" />
-								</div>
-								<div class="form-group">
-									<input type="password" th:field="*{confirmPassword}"
-										id="confirm_password" class="form-control input-lg"
-										placeholder="Re-inserir senha" tabindex="5" />
-								</div>
-								<hr />
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										<input type="reset" value="Cancelar" class="btn btn-block"
-											tabindex="6" />
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<input type="submit" value="Ok"
-											class="btn btn-success btn-block" tabindex="7" />
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<!-- end wrapper -->
-			</div>
+		<div id="welcome">
+			<div class="wrapper">Welcome!</div>
 		</div>
 
-		<div id="content_area"
-			style="position: relative; width: 100%; height: auto"></div>
 
 		<div class="row">
 			<div th:include="headernfooter :: footer"></div>

@@ -1,6 +1,6 @@
 package com.kikia.itacon.services;
 
-import com.kikia.itacon.entities.PublicInstitution;
+import com.kikia.itacon.domain.PublicInstitution;
 
 public interface PublicInstitutionService {
 

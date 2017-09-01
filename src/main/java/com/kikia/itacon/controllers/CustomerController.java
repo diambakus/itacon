@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kikia.itacon.entities.Customer;
+import com.kikia.itacon.domain.Customer;
 import com.kikia.itacon.services.CustomerService;
 
 @Controller

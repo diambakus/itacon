@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kikia.itacon.entities.PublicInstitution;
+import com.kikia.itacon.domain.PublicInstitution;
 import com.kikia.itacon.services.PublicInstitutionService;
 import com.kikia.itacon.utils.CodeGenerator;
 

@@ -1,13 +1,13 @@
 package com.kikia.itacon.services;
 
-import java.util.HashSet;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.kikia.itacon.entities.User;
-import com.kikia.itacon.repository.RoleRepository;
+import com.kikia.itacon.domain.User;
+import com.kikia.itacon.dto.UserDTO;
 import com.kikia.itacon.repository.UserRepository;
 
 /**
@@ -20,16 +20,6 @@ import com.kikia.itacon.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
-	
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Autowired
-	public void setRoleRepository(RoleRepository roleRepository) {
-		this.roleRepository = roleRepository;
-	}
 
 	@Autowired
 	public void setUserRepository(UserRepository userRepository) {
@@ -42,24 +32,35 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(Long id) {
-		return userRepository.findOne(id);
+	public Optional<User> getUserById(Long id) {
+		return Optional.ofNullable(userRepository.findOne(id));
 	}
 
 	@Override
-	public User saveUser(User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRoles(new HashSet<>(roleRepository.findAll()));
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public Optional<User> getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public User saveUser(UserDTO userDTO) {
+		User user = new User();
+		user.setEmail(userDTO.getEmail());
+		user.setFirstName(userDTO.getFirstName());
+		user.setLastName(userDTO.getLastName());
+		user.setUsername(userDTO.getUsername());
+		user.setPassword((new BCryptPasswordEncoder().encode(userDTO.getPassword())).toCharArray());
+		user.setRole(userDTO.getRole());
+		user.setEnable(userDTO.isEnable());
 		return userRepository.save(user);
 	}
 
 	@Override
 	public void deleteUser(Long id) {
 		userRepository.delete(id);
-	}
-
-	@Override
-	public User findByUsername(String username) {
-		return userRepository.findByUsername(username);
 	}
 }

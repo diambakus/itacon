@@ -1,7 +1,7 @@
 package com.kikia.itacon.services;
 
-import com.kikia.itacon.entities.PublicInstitution;
-import com.kikia.itacon.entities.Service;
+import com.kikia.itacon.domain.PublicInstitution;
+import com.kikia.itacon.domain.Service;
 
 public interface IServiceService {
 	

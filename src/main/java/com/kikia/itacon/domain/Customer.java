@@ -1,17 +1,22 @@
-package com.kikia.itacon.entities;
+package com.kikia.itacon.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-public class Customer extends BasicEntity {
+public class Customer implements Serializable {
 
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private String BI;
@@ -19,6 +24,16 @@ public class Customer extends BasicEntity {
 	private String phone;
 	private Long NIF;
 
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getId() {
+		return id;
+	}
 
 	public String getFirstName() {
 		return firstName;

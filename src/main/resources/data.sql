@@ -1,2 +1,2 @@
-insert into customer (customer_id, firstName, lastName, BI, balance, phones) values (1, 'Patrick', 'Borges', '111AAA', 1000000, '19-9111-1111')
-insert into customer (customer_id, firstName, lastName, BI, balance, phones) values (2, 'Fulano', 'Beltrano', '221AAA', 100, '11-9131-1111')
+insert into user (id, first_name, last_name, username, password, email, role, enable) values (1, 'superadmin', 'superadmin', 'superadmin','$2a$10$UzqHIJ2FmydZpj5TDbJsQ.YeVjL7vUfucmMj4K9acsZigh0F0QTRa', 'superadmin@itacon.com', 'SUPERADMIN', true);
+insert into user (id, first_name, last_name, username, password, email, role, enable) values (2, 'admin', 'admin', 'admin','$2a$10$NeZAUzevfUeW4GFGNZqIT.NVfkWmuOjZMj3tl1JrkwTkgEsQgOhim', 'admin@itacon.com', 'ADMIN', true);

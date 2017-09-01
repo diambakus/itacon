@@ -1,9 +1,16 @@
 .wrapper { /*Used on first page to offset form-signin*/
 	margin-top: 90px;
-	margin-bottom: 20px;
+	/*margin-bottom: 20px;*/
+	min-height: 100%; height : auto;
+	/* Negative indent footer by its height */
+	margin: 90px auto -60px;
+	/* Pad bottom by footer height */
+	padding: 0 0 60px;
+	height: auto;
 }
 
 body {
+	height: 100%;
 	background-color: white;
 	font-size: 14px;
 	line-height: 21px;
@@ -52,8 +59,6 @@ input[type="password"] {
 
 /*Footer stuff*/
 footer {
-	position: absolute;
-	bottom: 0;
 	background-color: #7c8696;
 	color: white;
 	padding: 15px;
@@ -174,6 +179,29 @@ h2.textintro {
 	color: #FFF;
 	background-color: #0e62ea;
 	font-style: bold;
+}
+
+/* **************************** */
+/* logout profile customization */
+/* **************************** */
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
 }
 
 /* ************** */
