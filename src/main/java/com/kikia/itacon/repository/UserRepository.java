@@ -8,5 +8,5 @@ import com.kikia.itacon.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByUsername(String username);
-	Optional<User> findByEmail(String email);
+	User findByEmail(String email);
 }

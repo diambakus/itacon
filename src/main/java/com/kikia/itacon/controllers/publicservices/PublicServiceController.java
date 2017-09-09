@@ -1,5 +1,7 @@
 package com.kikia.itacon.controllers.publicservices;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kikia.itacon.domain.PublicInstitution;
+import com.kikia.itacon.domain.User;
 import com.kikia.itacon.services.PublicInstitutionService;
+import com.kikia.itacon.services.UserService;
 import com.kikia.itacon.utils.CodeGenerator;
 
 @Controller
@@ -17,14 +21,18 @@ import com.kikia.itacon.utils.CodeGenerator;
 public class PublicServiceController {
 
 	private PublicInstitutionService publicInstitutionService;
+	private UserService userService;
 
 	@Autowired
-	public void setPublicInstitutionService(PublicInstitutionService publicInstitutionService) {
+	public PublicServiceController(PublicInstitutionService publicInstitutionService, UserService userService) {
 		this.publicInstitutionService = publicInstitutionService;
+		this.userService = userService;
 	}
 
 	@GetMapping("/")
-	public String showPublicServiceMain(Model model) {
+	public String showPublicServiceMain(Model model, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+		model.addAttribute("user", user);
 		model.addAttribute("publicservices", publicInstitutionService.listAllPublicInstitutions());
 		return "publicservices/publicservicesmain";
 	}

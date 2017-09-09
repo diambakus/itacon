@@ -29,7 +29,6 @@ public class User implements Serializable {
 	private Role role;
 	private PublicInstitution publicInstitution;
 	private boolean enable;
-	
 
 	public void setId(Long id) {
 		this.id = id;
@@ -108,5 +107,9 @@ public class User implements Serializable {
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
-	
+
+	public String toString() {
+		return "[firstName: " + firstName + " lastName: " + lastName + " username: " + username + " email: " + email
+				+ " Role: " + role.name() + " status:" + isEnable() + "]";
+	}
 }

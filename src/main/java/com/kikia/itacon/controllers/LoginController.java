@@ -21,7 +21,7 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	public void setUserService(UserService userService) {
+	public LoginController(UserService userService) {
 		this.userService = userService;
 	}
 
@@ -41,9 +41,12 @@ public class LoginController {
 	 */
 	@GetMapping("/dashboard")
 	public String userMainPage(Model model, Principal principal) {
+
 		User user = userService.findByUsername(principal.getName());
-		
+		logger.debug(user.toString());
+
 		model.addAttribute("user", user);
+
 		return "dashboard";
 	}
 

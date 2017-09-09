@@ -1,5 +1,7 @@
 package com.kikia.itacon.controllers;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.kikia.itacon.domain.User;
 import com.kikia.itacon.dto.UserDTO;
 import com.kikia.itacon.services.UserService;
 import com.kikia.itacon.validator.UserValidator;
@@ -41,7 +44,7 @@ public class UserController {
 		model.addAttribute("form", new UserDTO());
 		return "registration";
 	}
-	
+
 	@PostMapping(value = "/registration")
 	public String registration(@Valid @ModelAttribute("form") UserDTO user, BindingResult bindingResult) {
 		userValidator.validate(user, bindingResult);
@@ -57,10 +60,30 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	
+
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
-	@GetMapping("/profile/{id}")
-	public String getUserPage(Model model, @PathVariable Long id) {
-		return "userprofile";
+	@GetMapping(value = "/user/profile/{id}")
+	public String getUserPage(Model model, Principal principal, @PathVariable("id") Long id) {
+		User user = userService.findByUsername(principal.getName());
+		User targetedUser = userService.getUserById(id);
+		model.addAttribute("user", user);
+		model.addAttribute("userOnProfile", targetedUser);
+		
+		return "user/userprofile";
+	}
+
+	@GetMapping(value = "/user/activate/{id}")
+	public String statusUser(Model model, Principal principal, @PathVariable("id") Long id) {
+		User targetedUser = userService.getUserById(id);
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(targetedUser.getId());
+		userDTO.setEnable(true);
+		userService.saveUser(userDTO);
+		
+		User user = userService.findByUsername(principal.getName());
+		model.addAttribute("user", user);
+		model.addAttribute("userOnProfile", targetedUser);
+		
+		return "user/userprofile";
 	}
 }

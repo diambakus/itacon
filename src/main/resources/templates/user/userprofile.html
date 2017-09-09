@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+<title>ITACON - venda eletrônico de serviços públicos</title>
+<!--/*/ <th:block th:include="headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+	<div class="container-fluid">
+
+
+		<div class="row">
+			<div th:include="headernfooter :: headers"></div>
+		</div>
+
+		<div class="row">
+
+			<div
+				class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" /> <input type="hidden" th:field="*{id}" />
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<strong
+								th:text="${userOnProfile.firstName +' '+userOnProfile.lastName}"></strong>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-3 col-lg-3 " align="center">
+								<img alt="Foto do perfil" src="#"
+									class="img-circle img-responsive" />
+							</div>
+
+							<div class=" col-md-9 col-lg-9 ">
+								<table class="table table-user-information">
+									<tbody>
+										<tr>
+											<td>Departamento</td>
+											<td>{valor}</td>
+										</tr>
+										<tr>
+											<td>Data admissional</td>
+											<td>{valor}</td>
+										</tr>
+										<tr>
+											<td>Data de nascimento</td>
+											<td>{valor}</td>
+										</tr>
+
+										<tr>
+											<td>Endereço residencial</td>
+											<td>{valor}</td>
+										</tr>
+										<tr>
+											<td>Email</td>
+											<td><p th:text="${userOnProfile.email}"/></td>
+										</tr>
+										<tr>
+											<td>Telemóvel particular</td>
+											<td>{valor}</td>
+
+										</tr>
+
+									</tbody>
+								</table>
+
+								<div
+									sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')">
+									<a th:href="${'/itacon/user/activate/'+userOnProfile.id}"
+										class="btn btn-primary">Ativar</a> <a
+										th:href="${'/itacon/user/disactivate/'+userOnProfile.id}"
+										class="btn btn-primary">Desativar</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">
+						<span class="pull-right"> <a
+							th:href="${ '/itacon/user/profile/edit/' + user.id}"
+							data-original-title="Atualizar perfil" data-toggle="tooltip"
+							type="button" class="btn btn-sm btn-warning"><i
+								class="glyphicon glyphicon-edit"></i></a> <a
+							data-original-title="Deletar usuário" data-toggle="tooltip"
+							type="button" class="btn btn-sm btn-danger"><i
+								class="glyphicon glyphicon-remove"></i></a>
+						</span>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div th:include="headernfooter :: footer"></div>
+		</div>
+
+	</div>
+
+	<div th:include="includes :: javascript_libs"></div>
+</body>
+</html>

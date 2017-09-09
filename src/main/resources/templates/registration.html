@@ -28,7 +28,7 @@
 					<form role="form" th:object="${form}" th:modelAttribute="form"
 						th:action="@{/registration}" method="POST" class="form-signin">
 						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+							value="${_csrf.token}" /> <input type="hidden" th:field="*{id}" />
 						<h3 class="form-signin-heading">Cadastrar-se</h3>
 						<hr />
 						<div class="row">

@@ -1,6 +1,7 @@
 package com.kikia.itacon.controllers;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kikia.itacon.domain.Customer;
+import com.kikia.itacon.domain.User;
 import com.kikia.itacon.services.CustomerService;
+import com.kikia.itacon.services.UserService;
 
 @Controller
 public class CustomerController {
@@ -24,10 +27,12 @@ public class CustomerController {
 	private final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
 	private CustomerService customerService;
+	private UserService userService;
 
 	@Autowired
-	public void setCustomerService(CustomerService customerService) {
+	public  CustomerController(CustomerService customerService, UserService userService) {
 		this.customerService = customerService;
+		this.userService = userService;
 	}
 
 	@GetMapping(value = "/customers")
@@ -38,8 +43,10 @@ public class CustomerController {
 	}
 
 	@GetMapping(value = "/customerslist")
-	public String listOfCustomers(Model model) {
+	public String listOfCustomers(Model model, Principal principal) {
 		logger.debug("list()");
+		User user = userService.findByUsername(principal.getName());
+		model.addAttribute("user", user);
 		model.addAttribute("customers", customerService.listAllCustomers());
 		return "serviceuser";
 	}

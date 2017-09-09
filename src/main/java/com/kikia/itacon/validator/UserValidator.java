@@ -39,7 +39,7 @@ public class UserValidator implements Validator {
 	private void validateEmail(UserDTO form, Errors errors) {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-		if (userService.getUserByEmail(form.getEmail()).isPresent()) {
+		if (userService.getUserByEmail(form.getEmail()) != null) {
 			errors.rejectValue("email.exists", "Usuário com esse e-mail já existe!");
 		}
 	}

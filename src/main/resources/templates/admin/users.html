@@ -1,39 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
 <title>ITACON - venda eletrônico de serviços públicos</title>
-<link
-	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
-	rel="stylesheet" media="screen" />
-<link href="#" th:href="@{/css/styles.css}" rel="stylesheet"
-	media="screen" />
+<!--/*/ <th:block th:include="headerinc :: head"></th:block> /*/-->
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
+		<div class="row">
+			<div th:include="headernfooter :: headers"></div>
+		</div>
 		<div th:if="${not #lists.isEmpty(users)}">
-		<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 			<h2>Lista de usuários do sistema</h2>
 			<table class="table table-striped">
 				<tr>
 					<th>Nome completo</th>
 					<th>Nome do usuário</th>
 					<th>E-mail</th>
-					<th>Função</th>
-					<th>Status</th>
-					<th>Editar</th>
+					<th>Descrição</th>
+
 				</tr>
 				<tr th:each="user : ${users}">
 					<td th:text="${user.firstName +' '+ user.lastName}" />
 					<td th:text="${user.username}" />
 					<td th:text="${user.email}" />
-					<td><a th:href="${ '/user/user/' + user.id}">Perfil</a></td>
+					<td><a th:href="${ '/itacon/user/profile/' + user.id}">Perfil</a></td>
 				</tr>
 			</table>
 

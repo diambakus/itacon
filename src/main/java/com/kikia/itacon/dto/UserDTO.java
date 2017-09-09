@@ -14,6 +14,7 @@ public class UserDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4174502180114192699L;
+	private Long id = null;
 	@NotEmpty
 	private String firstName = "";
 	@NotEmpty
@@ -32,6 +33,13 @@ public class UserDTO implements Serializable {
 	private boolean enable = false;
     
 
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

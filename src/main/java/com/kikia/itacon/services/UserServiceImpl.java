@@ -1,7 +1,5 @@
 package com.kikia.itacon.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,8 +30,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> getUserById(Long id) {
-		return Optional.ofNullable(userRepository.findOne(id));
+	public User getUserById(Long id) {
+		return userRepository.findOne(id);
 	}
 
 	@Override
@@ -42,20 +40,33 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> getUserByEmail(String email) {
+	public User getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 
 	@Override
 	public User saveUser(UserDTO userDTO) {
-		User user = new User();
-		user.setEmail(userDTO.getEmail());
-		user.setFirstName(userDTO.getFirstName());
-		user.setLastName(userDTO.getLastName());
-		user.setUsername(userDTO.getUsername());
-		user.setPassword((new BCryptPasswordEncoder().encode(userDTO.getPassword())).toCharArray());
-		user.setRole(userDTO.getRole());
-		user.setEnable(userDTO.isEnable());
+		User user;
+		if (userDTO.getId() != null) {
+			user = getUserById(userDTO.getId());
+		}else {
+			user = new User();
+		}
+		if (!userDTO.getEmail().equals(""))
+			user.setEmail(userDTO.getEmail());
+		if (!userDTO.getFirstName().equals(""))
+			user.setFirstName(userDTO.getFirstName());
+		if (!userDTO.getLastName().equals(""))
+			user.setLastName(userDTO.getLastName());
+		if (!userDTO.getUsername().equals(""))
+			user.setUsername(userDTO.getUsername());
+		if (!userDTO.getPassword().equals(""))
+			user.setPassword((new BCryptPasswordEncoder().encode(userDTO.getPassword())).toCharArray());
+		if (userDTO.getRole() != user.getRole())
+			user.setRole(userDTO.getRole());
+		if (userDTO.isEnable() != user.isEnable())
+			user.setEnable(userDTO.isEnable());
+		
 		return userRepository.save(user);
 	}
 
