@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>ITACON - Transação eletrônica de serviços públicos</title>
+
+<title>ITACON - venda eletrônico de serviços públicos</title>
 <!--/*/ <th:block th:include="headerinc :: head"></th:block> /*/-->
 </head>
-
 <body>
-	<div th:include="signaccount::header"></div>
 
 	<div class="container">
 
-		<div id="welcome">
-			<div class="wrapper">Welcome!</div>
+		<div class="alert alert-danger">
+			<strong>Error!</strong> Erro inesperado.
+			negative action.
 		</div>
-
 
 		<div class="row">
 			<div th:include="headernfooter :: footer"></div>
 		</div>
+
 	</div>
 
 	<div th:include="includes :: javascript_libs"></div>

@@ -35,19 +35,57 @@
 					<li class="active"><a th:href="@{/dashboard}"><span
 							class="glyphicon glyphicon-home"></span> Dashboard</a></li>
 					<li><a th:href="@{/customerslist}">Utentes &amp; Saldos</a></li>
-					<li><a th:href="@{/publicservices/}">Serviços</a></li>
+					<li sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')">
+						<a th:href="@{/institution/institutions}">Ministérios</a>
+					</li>
+
 
 					<li sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')">
 						<a th:href="@{/dashboard/admin/users}">Usuários</a>
 					</li>
-
-
-
-
-
 				</ul>
 				<ul class="nav navbar-nav navbar-right" style="margin-right: 50px;">
 
+					<li sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')"><button
+							class="btn btn-default navbar-btn" data-toggle="modal"
+							data-target="#createInstitutionForm">Criar Ministério</button> <!-- Modal -->
+
+						<div class="modal fade" id="createInstitutionForm" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-md">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">
+											<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel">Registrar
+											Ministério</h4>
+									</div>
+									<div class="modal-body">
+										<form class="form-horizontal" role="form"
+											th:action="@{/addInstitution}"
+											th:modelAttribute="institution" method="POST"
+											name="institution">
+											<input type="hidden" name="${_csrf.parameterName}"
+												value="${_csrf.token}" /> <input type="hidden" />
+											<div class="form-group">
+												<label class="control-label" for="institutionname">Nome
+													do Ministério</label>
+												<div class="col-sm-10">
+													<input input="text" id="name" class="form-control input-sm"
+														placeholder="Inserir nome" tabindex="1" />
+												</div>
+											</div>
+										</form>
+									</div>
+
+									<!-- footer -->
+									<div class="modal-footer">
+										<button type="button" class="btn-md btn-primary">OK</button>
+									</div>
+								</div>
+							</div>
+						</div></li>
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
