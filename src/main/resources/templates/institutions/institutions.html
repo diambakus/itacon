@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>ITACON - venda eletrônico de serviços públicos</title>
+<!--/*/ <th:block th:include="headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:include="headernfooter :: headers"></div>
+		</div>
+		<div th:if="${not #lists.isEmpty(institutions)}">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<h2>Ministérios</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Nome</th>
+					<th>Código</th>
+					<th>Número de serviços</th>
+				</tr>
+				
+<!-- 				<tr th:each="institution : ${institutions}"> -->
+<!-- 				</tr> -->
+			</table>
+
+		</div>
+		<div class="row">
+			<div th:include="headernfooter :: footer"></div>
+		</div>
+	</div>
+
+	<div th:include="includes :: javascript_libs"></div>
+</body>
+</html>

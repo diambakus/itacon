@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+	<div th:fragment="headers">
+		<nav class="navbar navbar-inverse navbar-fixed-top"
+			style="background-color: #7c8696">
+			<div class="navbar-header">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">ITACON LOGO</a>
+				</div>
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+			</div>
+		</nav>
+
+
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav" style="margin-left: 50px;">
+
+					<li class="active"><a th:href="@{/dashboard}"><span
+							class="glyphicon glyphicon-home"></span> Dashboard</a></li>
+					<li><a th:href="@{/customerslist}">Utentes &amp; Saldos</a></li>
+					<li sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')">
+						<a th:href="@{/institution/institutions}">Ministérios</a>
+					</li>
+
+
+					<li sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')">
+						<a th:href="@{/dashboard/admin/users}">Usuários</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" style="margin-right: 50px;">
+
+					<li sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')"><button
+							class="btn btn-default navbar-btn" data-toggle="modal"
+							data-target="#createInstitutionForm">Criar Ministério</button> <!-- Modal -->
+
+						<div class="modal fade" id="createInstitutionForm" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-md">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">
+											<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel">Registrar
+											Ministério</h4>
+									</div>
+									<div class="modal-body">
+										<form class="form-horizontal" role="form"
+											th:action="@{/addInstitution}"
+											th:modelAttribute="institution" method="POST"
+											name="institution">
+											<input type="hidden" name="${_csrf.parameterName}"
+												value="${_csrf.token}" /> <input type="hidden" />
+											<div class="form-group">
+												<label class="control-label" for="institutionname">Nome
+													do Ministério</label>
+												<div class="col-sm-10">
+													<input input="text" id="name" class="form-control input-sm"
+														placeholder="Inserir nome" tabindex="1" />
+												</div>
+											</div>
+										</form>
+									</div>
+
+									<!-- footer -->
+									<div class="modal-footer">
+										<button type="button" class="btn-md btn-primary">OK</button>
+									</div>
+								</div>
+							</div>
+						</div></li>
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+							<strong th:text="${user.username}">Nome do usuário</strong> <span
+							class="glyphicon glyphicon-chevron-down"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li>
+								<div class="navbar-login">
+									<div class="row">
+										<div class="col-lg-4">
+											<p class="text-center">
+												<span class="glyphicon glyphicon-user icon-size"></span>
+											</p>
+										</div>
+										<div class="col-lg-8">
+											<p class="text-left">
+												<strong th:text="${user.firstName +' '+user.lastName}">Nome
+													completo</strong>
+											</p>
+											<p class="text-left small" th:text="${user.email}"></p>
+											<p class="text-left">
+												<a href="#" class="btn btn-primary btn-block btn-sm">Dados
+													pessoal</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<div class="navbar-login navbar-login-session">
+									<div class="row">
+										<div class="col-lg-12">
+											<form th:action="@{/logout}" method="post">
+												<input type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" />
+
+												<button class="btn btn-link btn-sm btn-default-custom "
+													type="submit">Sair</button>
+											</form>
+
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul></li>
+					<li><a href="#">Sobre o projeto</a></li>
+					<li><a href="#">Contatos</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<div th:fragment="footer">
+		<footer class="navbar-fixed-bottom text-center">
+			<div class="container">
+				<p>&copy; 2016 Kikia Technologies</p>
+			</div>
+		</footer>
+	</div>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+</body>
+</html>
