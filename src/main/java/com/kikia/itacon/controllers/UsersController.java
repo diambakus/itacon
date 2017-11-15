@@ -23,10 +23,16 @@ public class UsersController {
 	@GetMapping(value = "/dashboard/admin/users")
 	public String listUsers(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
-
-		model.addAttribute("user", user);
-
-		model.addAttribute("users", userService.listAllUsers());
-		return "admin/users";
+        String viewValue = null;
+        
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("users", userService.listAllUsers());
+			viewValue = "admin/users";
+		} else {
+			viewValue = "unexpected_error";
+		}
+		
+		return viewValue;
 	}
 }

@@ -1,7 +1,8 @@
 package com.kikia.itacon.domain;
 
 /**
- * USER - use the system
+ * USER - sells the public service to the community
+ * USER_CRED - new community member register and sells the credit
  * ADMIN - create/authenticate the USER and services
  * AUDIT - audit the USER activity
  * SUPERADMIN - create/authenticate ADMIN
@@ -9,5 +10,5 @@ package com.kikia.itacon.domain;
  *
  */
 public enum Role {
-	USER, ADMIN, AUDIT, SUPERADMIN
+	USER, USER_CRED, ADMIN, AUDIT, SUPERADMIN
 }

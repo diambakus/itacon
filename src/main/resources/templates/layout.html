@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,18 +13,19 @@
 </head>
 <body>
 
-	<div th:include="headernfooter :: headers"></div>
-
-	<section layout:fragment="content">
-		<p>Page content goes here</p>
-	</section>
-	<footer layout:fragment="footer">
-		<div class="navbar-fixed-bottom text-center">
-			<div class="container">
-				<p>&copy; 2016 Kikia Technologies</p>
-			</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:include="headernfooter :: headers"></div>
 		</div>
-	</footer>
+		<div class="container">
+			<section layout:fragment="content">
+				<p>Page content goes here</p>
+			</section>
+		</div>
+		<div class="row">
+			<div th:include="headernfooter :: footer"></div>
+		</div>
+	</div>
 	<div th:include="includes :: javascript_libs"></div>
 </body>
 </html>

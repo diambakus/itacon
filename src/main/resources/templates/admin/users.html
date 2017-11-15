@@ -11,26 +11,27 @@
 		<div class="row">
 			<div th:include="headernfooter :: headers"></div>
 		</div>
-		<div th:if="${not #lists.isEmpty(users)}">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<h2>Lista de usuários do sistema</h2>
-			<table class="table table-striped">
-				<tr>
-					<th>Nome completo</th>
-					<th>Nome do usuário</th>
-					<th>E-mail</th>
-					<th>Descrição</th>
+		<div class="container">
+			<div th:if="${not #lists.isEmpty(users)}">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<h2>Lista de usuários do sistema</h2>
+				<table class="table table-striped">
+					<tr>
+						<th>Nome completo</th>
+						<th>Nome do usuário</th>
+						<th>E-mail</th>
+						<th>Descrição</th>
 
-				</tr>
-				<tr th:each="user : ${users}">
-					<td th:text="${user.firstName +' '+ user.lastName}" />
-					<td th:text="${user.username}" />
-					<td th:text="${user.email}" />
-					<td><a th:href="${ '/itacon/user/profile/' + user.id}">Perfil</a></td>
-				</tr>
-			</table>
-
+					</tr>
+					<tr th:each="user : ${users}">
+						<td th:text="${user.firstName +' '+ user.lastName}" />
+						<td th:text="${user.username}" />
+						<td th:text="${user.email}" />
+						<td><a th:href="${ '/itacon/user/profile/' + user.id}">Perfil</a></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div class="row">
 			<div th:include="headernfooter :: footer"></div>

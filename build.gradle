@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.1.RELEASE'
+		springBootVersion = '1.4.5.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -42,5 +42,4 @@ dependencies {
 	runtime('com.h2database:h2')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	compile('org.webjars:bootstrap:3.3.7')
 }
