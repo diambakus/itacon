@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kikia.itacon.domain.PublicInstitution;
+import com.kikia.itacon.domain.Institution;
 import com.kikia.itacon.domain.User;
-import com.kikia.itacon.services.PublicInstitutionService;
+import com.kikia.itacon.services.InstitutionService;
 import com.kikia.itacon.services.UserService;
 import com.kikia.itacon.utils.CodeGenerator;
 
@@ -20,12 +20,12 @@ import com.kikia.itacon.utils.CodeGenerator;
 @RequestMapping("/publicservices")
 public class PublicServiceController {
 
-	private PublicInstitutionService publicInstitutionService;
+	private InstitutionService institutionService;
 	private UserService userService;
 
 	@Autowired
-	public PublicServiceController(PublicInstitutionService publicInstitutionService, UserService userService) {
-		this.publicInstitutionService = publicInstitutionService;
+	public PublicServiceController(InstitutionService institutionService, UserService userService) {
+		this.institutionService = institutionService;
 		this.userService = userService;
 	}
 
@@ -33,23 +33,23 @@ public class PublicServiceController {
 	public String showPublicServiceMain(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		model.addAttribute("user", user);
-		model.addAttribute("publicservices", publicInstitutionService.listAllPublicInstitutions());
+		model.addAttribute("publicservices", institutionService.listAllInstitutions());
 		return "publicservices/publicservicesmain";
 	}
 
 	@GetMapping("/create")
 	public String create(Model model) {
-		model.addAttribute("publicservices", publicInstitutionService.listAllPublicInstitutions());
-		model.addAttribute("publicservice", new PublicInstitution());
+		model.addAttribute("publicservices", institutionService.listAllInstitutions());
+		model.addAttribute("publicservice", new Institution());
 		return "publicservices/publicservicescreate";
 	}
 
 	@PostMapping("/publicservicecreation")
-	public String creation(@ModelAttribute("publicservice") PublicInstitution publicservice, Model model) {
+	public String creation(@ModelAttribute("publicservice") Institution publicservice, Model model) {
 
 		String publicServiceCode = CodeGenerator.getInstance().getPublicServiceCode(publicservice.getName());
 		publicservice.setCode(publicServiceCode);
-		publicInstitutionService.savePublicInstitution(publicservice);
+		//institutionService.saveInstitution(publicservice);
 		return "redirect:/publicservices/create";
 	}
 }

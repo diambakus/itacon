@@ -13,8 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "public_institution")
-public class PublicInstitution implements Serializable {
+@Table(name = "institution")
+public class Institution implements Serializable {
 
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class PublicInstitution implements Serializable {
 		this.code = code;
 	}
 
-	@OneToMany(mappedBy = "publicInstitution", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<Service> getServices() {
 		return services;
 	}
@@ -62,7 +62,7 @@ public class PublicInstitution implements Serializable {
 		this.services = services;
 	}
 	
-	@OneToMany(mappedBy = "publicInstitution", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<User> getUsers() {
 		return users;
 	}

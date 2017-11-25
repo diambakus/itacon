@@ -1,37 +1,63 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
 <title>ITACON - venda eletrônico de serviços públicos</title>
 <!--/*/ <th:block th:include="headerinc :: head"></th:block> /*/-->
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row">
-			<div th:include="headernfooter :: headers"></div>
-		</div>
-		<div th:if="${not #lists.isEmpty(institutions)}">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<h2>Ministérios</h2>
-			<table class="table table-striped">
-				<tr>
-					<th>Nome</th>
-					<th>Código</th>
-					<th>Número de serviços</th>
-				</tr>
-				
-<!-- 				<tr th:each="institution : ${institutions}"> -->
-<!-- 				</tr> -->
-			</table>
+	<section layout:fragment="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+					<div th:if="${not #lists.isEmpty(institutionsDTO)}">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+						<h2>Ministérios</h2>
+						<table class="table table-striped">
+							<tr>
+								<th>Nome</th>
+								<th>Código</th>
+								<th>Número de serviços</th>
+							</tr>
 
-		</div>
-		<div class="row">
-			<div th:include="headernfooter :: footer"></div>
-		</div>
-	</div>
+							<tr th:each="institutionDTO : ${institutionsDTO}">
+								<td th:text="${institutionDTO.name}" />
+								<td th:text="${institutionDTO.code}" />
+								<td th:text="${institutionDTO.numberOfInstitutions}" />
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+					style="border-left: 0.1rem solid #d8d8d8;">
+					<!-- set border left to separate form from table -->
+					<a href="#" type="button" class="btn btn-primary">Adicionar
+						Ministério</a>
+					<!-- 						<div th:include="institution::institution-form"></div> -->
 
-	<div th:include="includes :: javascript_libs"></div>
+					<form id="institutionForm" role="form"
+						th:object="${institutionDTO}" th:modelAttribute="institutionDTO"
+						th:action="@{/institution/addInstitution}" method="POST">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> <input type="hidden" th:field="*{id}" />
+						<div class="form-group">
+							<label class="control-label" for="institutionname">Nome
+								do Ministério</label> <input input="text" id="name" th:field="*{name}"
+								class="form-control input-xs" placeholder="Inserir nome"
+								tabindex="1" />
+						</div>
+						<div class="form-group">
+							<button type="reset" class="btn btn-default" id="">Cancelar</button>
+							<button type="submit" class="btn btn-primary" id="">Salvar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

@@ -1,11 +1,9 @@
 package com.kikia.itacon.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kikia.itacon.domain.User;
-import com.kikia.itacon.dto.UserDTO;
 import com.kikia.itacon.repository.UserRepository;
 
 /**
@@ -45,28 +43,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User saveUser(UserDTO userDTO) {
-		User user;
-		if (userDTO.getId() != null) {
-			user = getUserById(userDTO.getId());
-		}else {
-			user = new User();
-		}
-		if (!userDTO.getEmail().equals(""))
-			user.setEmail(userDTO.getEmail());
-		if (!userDTO.getFirstName().equals(""))
-			user.setFirstName(userDTO.getFirstName());
-		if (!userDTO.getLastName().equals(""))
-			user.setLastName(userDTO.getLastName());
-		if (!userDTO.getUsername().equals(""))
-			user.setUsername(userDTO.getUsername());
-		if (!userDTO.getPassword().equals(""))
-			user.setPassword((new BCryptPasswordEncoder().encode(userDTO.getPassword())).toCharArray());
-		if (userDTO.getRole() != user.getRole())
-			user.setRole(userDTO.getRole());
-		if (userDTO.isEnable() != user.isEnable())
-			user.setEnable(userDTO.isEnable());
-		
+	public User saveUser(User user) {
 		return userRepository.save(user);
 	}
 

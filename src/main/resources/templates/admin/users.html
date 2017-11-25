@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <title>ITACON - venda eletrônico de serviços públicos</title>
 <!--/*/ <th:block th:include="headerinc :: head"></th:block> /*/-->
@@ -12,7 +12,7 @@
 			<div th:include="headernfooter :: headers"></div>
 		</div>
 		<div class="container">
-			<div th:if="${not #lists.isEmpty(users)}">
+			<div th:if="${not #lists.isEmpty(usersDTO)}">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 				<h2>Lista de usuários do sistema</h2>
@@ -24,11 +24,11 @@
 						<th>Descrição</th>
 
 					</tr>
-					<tr th:each="user : ${users}">
-						<td th:text="${user.firstName +' '+ user.lastName}" />
-						<td th:text="${user.username}" />
-						<td th:text="${user.email}" />
-						<td><a th:href="${ '/itacon/user/profile/' + user.id}">Perfil</a></td>
+					<tr th:each="userDTO : ${usersDTO}">
+						<td th:text="${userDTO.firstName +' '+ userDTO.lastName}" />
+						<td th:text="${userDTO.username}" />
+						<td th:text="${userDTO.email}" />
+						<td><a th:href="${ '/itacon/user/profile/' + userDTO.id}">Perfil</a></td>
 					</tr>
 				</table>
 			</div>

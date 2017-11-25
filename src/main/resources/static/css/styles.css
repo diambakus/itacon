@@ -18,6 +18,9 @@ body {
 	font-family: "OpenSans", Arial, sans-serif;
 }
 
+div.container {
+	margin-top: 1rem;
+}
 /*external wrapper of login and registration screen*/
 .form-signin {
 	max-width: 520px;
@@ -311,4 +314,9 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 input[type=number] {
 	-moz-appearance: textfield;
+}
+
+/*Style on Institution Page*/
+.box {
+	display: inline-block;
 }

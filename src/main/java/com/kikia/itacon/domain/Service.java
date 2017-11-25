@@ -24,7 +24,7 @@ public class Service implements Serializable {
 	private String name;
 	private String code;
 	private BigDecimal price;
-	private PublicInstitution publicInstitution;
+	private Institution institution;
 	
 
 
@@ -43,8 +43,8 @@ public class Service implements Serializable {
 		this.name = name;
 	}
 
-	public Service(String name, PublicInstitution publicInstitution) {
-		this.publicInstitution = publicInstitution;
+	public Service(String name, Institution institution) {
+		this.institution = institution;
 		this.name = name;
 	}
 
@@ -73,12 +73,12 @@ public class Service implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "public_institution_id")
-	public PublicInstitution getPublicInstitution() {
-		return publicInstitution;
+	@JoinColumn(name = "institution_id")
+	public Institution getInstitution() {
+		return institution;
 	}
 
-	public void setPublicInstitution(PublicInstitution publicInstitution) {
-		this.publicInstitution = publicInstitution;
+	public void setInstitution(Institution institution) {
+		this.institution = institution;
 	}
 }

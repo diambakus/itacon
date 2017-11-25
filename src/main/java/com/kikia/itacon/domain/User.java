@@ -27,7 +27,7 @@ public class User implements Serializable {
 	private char[] password;
 	private String email;
 	private Role role;
-	private PublicInstitution publicInstitution;
+	private Institution institution;
 	private boolean enable;
 
 	public void setId(Long id) {
@@ -91,13 +91,13 @@ public class User implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "public_institution_id")
-	public PublicInstitution getPublicInstitution() {
-		return publicInstitution;
+	@JoinColumn(name = "institution_id")
+	public Institution getInstitution() {
+		return institution;
 	}
 
-	public void setPublicInstitution(PublicInstitution publicInstitution) {
-		this.publicInstitution = publicInstitution;
+	public void setInstitution(Institution institution) {
+		this.institution = institution;
 	}
 
 	public boolean isEnable() {

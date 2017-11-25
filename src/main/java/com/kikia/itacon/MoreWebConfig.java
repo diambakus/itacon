@@ -1,5 +1,6 @@
 package com.kikia.itacon;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -17,11 +18,25 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @Configuration
 public class MoreWebConfig extends WebMvcConfigurerAdapter {
 
+	/**
+	 * Configuration of thymeleaf fragment Layout
+	 * 
+	 * @return
+	 */
 	@Bean
 	public TemplateEngine getTemplateEngine() {
 		TemplateEngine templateEngine = new TemplateEngine();
 		templateEngine.addDialect(new LayoutDialect());
 
 		return templateEngine;
+	}
+	
+	/**
+	 * Configuration of ModelMapper bean
+	 * @return
+	 */
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 }
