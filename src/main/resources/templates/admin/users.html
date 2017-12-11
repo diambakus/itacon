@@ -12,7 +12,7 @@
 			<div th:include="headernfooter :: headers"></div>
 		</div>
 		<div class="container">
-			<div th:if="${not #lists.isEmpty(usersDTO)}">
+			<div th:if="${not #lists.isEmpty(users)}">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 				<h2>Lista de usuários do sistema</h2>
@@ -24,11 +24,11 @@
 						<th>Descrição</th>
 
 					</tr>
-					<tr th:each="userDTO : ${usersDTO}">
-						<td th:text="${userDTO.firstName +' '+ userDTO.lastName}" />
-						<td th:text="${userDTO.username}" />
-						<td th:text="${userDTO.email}" />
-						<td><a th:href="${ '/itacon/user/profile/' + userDTO.id}">Perfil</a></td>
+					<tr th:each="user : ${users}">
+						<td th:text="${user.firstName +' '+ user.lastName}" />
+						<td th:text="${user.username}" />
+						<td th:text="${user.email}" />
+						<td><a th:href="${ '/itacon/user/profile/' + user.id}">Perfil</a></td>
 					</tr>
 				</table>
 			</div>

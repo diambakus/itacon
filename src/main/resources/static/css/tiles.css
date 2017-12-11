@@ -1,0 +1,32 @@
+.tile_output * {
+	box-sizing: border-box;
+	border-radius: 1rem;
+	color: white;
+	font-size: 2rem;
+	font-family: cursive;
+	text-align: center;
+}
+
+.tile_output ul {
+	padding-left: 0;
+}
+
+.tile_output li {
+	display: block;
+	float: left;
+	width: 25%;
+	border: 2px solid white;
+	padding: 5px;
+	height: 150px;
+	background-color: #4A2DB6;
+	color: white;
+}
+
+.tile_output li a {
+	text-decoration: none;
+	padding-top: 2rem;
+}
+
+.tile_output li p {
+	
+}

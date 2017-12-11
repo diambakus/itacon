@@ -1,6 +1,5 @@
 package com.kikia.itacon;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -29,14 +28,5 @@ public class MoreWebConfig extends WebMvcConfigurerAdapter {
 		templateEngine.addDialect(new LayoutDialect());
 
 		return templateEngine;
-	}
-	
-	/**
-	 * Configuration of ModelMapper bean
-	 * @return
-	 */
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
 	}
 }

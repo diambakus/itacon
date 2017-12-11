@@ -3,6 +3,7 @@ package com.kikia.itacon.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,23 +13,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
+/**
+ * That class represent an institution offered service
+ * 
+ * @author diambakus
+ *
+ */
 @Entity
 @Table(name = "service")
-public class Service implements Serializable {
+public class OfferedService implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5248273079563923850L;
-    private Long id;
+	private Long id;
 	private String name;
 	private String code;
 	private BigDecimal price;
 	private Institution institution;
-	
 
-
-	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -37,15 +44,6 @@ public class Service implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
-	}
-	
-	public Service(String name) {
-		this.name = name;
-	}
-
-	public Service(String name, Institution institution) {
-		this.institution = institution;
-		this.name = name;
 	}
 
 	public String getName() {
@@ -64,6 +62,9 @@ public class Service implements Serializable {
 		this.code = code;
 	}
 
+	/*xxx,xxx,xxx.yy*/
+	@Column(precision = 11, scale = 3)
+	@NumberFormat(style = Style.CURRENCY)
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -80,5 +81,29 @@ public class Service implements Serializable {
 
 	public void setInstitution(Institution institution) {
 		this.institution = institution;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		return prime * ((id == null) ? 0 : id.hashCode() % 3);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OfferedService other = (OfferedService) obj;
+
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 }

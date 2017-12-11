@@ -1,11 +1,7 @@
 package com.kikia.itacon.controllers.institution;
 
 import java.security.Principal;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +10,12 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kikia.itacon.domain.Institution;
 import com.kikia.itacon.domain.User;
-import com.kikia.itacon.dto.InstitutionDTO;
-import com.kikia.itacon.dto.UserDTO;
 import com.kikia.itacon.services.InstitutionService;
 import com.kikia.itacon.services.UserService;
 
@@ -30,18 +25,15 @@ public class InstitutionController {
 
 	private InstitutionService institutionService;
 	private UserService userService;
-	private ModelMapper modelMapper;
 	private final String institutionsListViewValue = "institutions/institutions";
 
 	@Autowired
-	public void InstituteController(InstitutionService institutionService, UserService userService,
-			ModelMapper modelMapper) {
+	public void InstituteController(InstitutionService institutionService, UserService userService) {
 		this.institutionService = institutionService;
 		this.userService = userService;
-		this.modelMapper = modelMapper;
 	}
 
-	@InitBinder("form")
+	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 
 	}
@@ -60,17 +52,12 @@ public class InstitutionController {
 	public String institutions(Model model, final Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		String viewValue = null;
-		UserDTO userDTO = convertToDTO(user);
 
-		if (userDTO != null) {
-			model.addAttribute("userDTO", userDTO);
+		if (user != null) {
+			model.addAttribute("user", user);
 
-			model.addAttribute("institutionDTO", new InstitutionDTO());
-			Iterable<Institution> institutions = institutionService.listAllInstitutions();
-			Stream<Institution> institutionsStream = StreamSupport.stream(institutions.spliterator(), false);
-
-			model.addAttribute("institutionsDTO",
-					institutionsStream.map(institution -> convertToDTO(institution)).collect(Collectors.toList()));
+			model.addAttribute("institution", new Institution());
+			model.addAttribute("institutions", institutionService.listAllInstitutions());
 			viewValue = institutionsListViewValue;
 		} else {
 			viewValue = "unexpected_error";
@@ -88,11 +75,10 @@ public class InstitutionController {
 	public String addInstitution(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		String viewValue = null;
-		UserDTO userDTO = convertToDTO(user);
 
-		if (userDTO != null) {
-			model.addAttribute("userDTO", userDTO);
-			model.addAttribute("institutionDTO", new InstitutionDTO());
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("institution", new Institution());
 			viewValue = institutionsListViewValue;
 		} else {
 			viewValue = "unexpected_error";
@@ -104,60 +90,35 @@ public class InstitutionController {
 	/**
 	 * 
 	 * @param model
-	 * @param institutionDTO
+	 * @param institution
 	 * @param bindingResult
 	 * @param principal
 	 * @return
 	 */
 	@PostMapping(value = "/addInstitution")
-	public String addInstitution(Model model, @ModelAttribute("institutionDTO") InstitutionDTO institutionDTO,
+	public String addInstitution(Model model, @ModelAttribute("institution") Institution institution,
 			BindingResult bindingResult, final Principal principal) {
 
 		User user = userService.findByUsername(principal.getName());
-		UserDTO userDTO = convertToDTO(user);
-		if (userDTO != null) {
-			institutionService.saveInstitution(convertToEntity(institutionDTO));
-			model.addAttribute("userDTO", userDTO);
+
+		if (user != null) {
+			institutionService.saveInstitution(institution);
+			model.addAttribute("user", user);
 		}
 
-		return institutionsListViewValue;
-	}
-
-	/* Convert Entity to Data Transfer Object (DTO) and vice-versa */
-	/**
-	 * Converts Entity - domain model object to the DTO object
-	 * 
-	 * @param institution
-	 *            - receives domain model as parameter
-	 * @return DTO object
-	 */
-	private InstitutionDTO convertToDTO(Institution institution) {
-		InstitutionDTO institutionDTO = modelMapper.map(institution, InstitutionDTO.class);
-		institutionDTO.setNumberOfInstitutions(institution.getServices().size());
-		return institutionDTO;
-	}
-
-	/**
-	 * As we persist through entity object. We need to convert DTO object
-	 * to entity object. This method does that.
-	 * @param institutionDTO - DTO object to be converted
-	 * @return  It returns entity object
-	 */
-	private Institution convertToEntity(InstitutionDTO institutionDTO) {
-		Institution institution = modelMapper.map(institutionDTO, Institution.class);
-		return institution;
+		return "redirect:/institution/institutions";
 	}
 	
-	/* Convert Entity to Data Transfer Object (DTO) and vice-versa */
-	/**
-	 * Converts Entity - domain model object to the DTO object
-	 * 
-	 * @param user
-	 *            - receives domain model as parameter
-	 * @return DTO object
-	 */
-	private UserDTO convertToDTO(User user) {
-		UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-		return userDTO;
+	@GetMapping(value="/show/{id}")
+	public String showInstitutionInfo(Model model, Principal principal, @PathVariable("id") Long id) {
+		
+		String view = "unexpected_error";
+		User user = userService.findByUsername(principal.getName());
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("institution", institutionService.getInstitution(id));
+			view = "institutions/institution";
+		}
+		return view;
 	}
 }

@@ -12,5 +12,5 @@ public interface InstitutionService {
 
 	void deleteInstitution(Long Id);
 
-	int getNUmberOfServices(Institution institution);
+	int getNumberOfOfferedServices(Institution institution);
 }

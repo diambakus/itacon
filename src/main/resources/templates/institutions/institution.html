@@ -1,32 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	layout:decorator="layout">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<title>ITACON - Transação eletrônica de serviços públicos</title>
+<title>ITACON - venda eletrônico de serviços públicos</title>
 <!--/*/ <th:block th:include="headerinc :: head"></th:block> /*/-->
+<link href="#" th:href="@{/css/tiles.css}" rel="stylesheet"
+	media="screen" />
 </head>
 <body>
-	<div th:fragment="institution-form">
-		<form role="form" class="form-horizontal" th:object="${institution}"
-			th:modelAttribute="institution">
-			<div class="form-group">
-				<label class="control-label" for="institutionname">Nome do
-					Ministério</label> <input input="text" id="name"
-					class="form-control input-sm" placeholder="Inserir nome"
-					tabindex="1" />
+	<section layout:fragment="content">
+		<div class="container">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" /> <input type="hidden" th:field="*{id}" />
+			<div class="row">
+				<div th:if="${#lists.isEmpty(institution.offeredServices)}">
+					<h3 class="text-success text-center">Nenhum serviço
+						registrado!</h3>
+				</div>
+				<div th:unless="${#lists.isEmpty(institution.offeredServices)}">
+					<h4 class="text-success text-center" th:text="${institution.name}">Institution
+						name</h4>
+					<hr />
+					<ul class="tile_output">
+						<li th:each="service : ${institution.offeredServices}"><a
+							th:href="@{/}"> <span th:text="${service.name}"> </span>
+						</a>
+							<p th:text="${service.price}" /></li>
+					</ul>
+				</div>
 			</div>
-			<div class="form-group">
-				<button type="reset" class="btn btn-default" id="">Cancelar</button>
-				<button type="submit" class="btn btn-primary" id="">Salvar</button>
-			</div>
-		</form>
-	</div>
+			<div class="row"></div>
+		</div>
+	</section>
 </body>
 
 </html>

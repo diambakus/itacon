@@ -24,7 +24,8 @@ public class User implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String username;
-	private char[] password;
+	private String password;
+	private String passwordConfirm;
 	private String email;
 	private Role role;
 	private Institution institution;
@@ -48,12 +49,20 @@ public class User implements Serializable {
 		this.username = userName;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
 
 	public String getFirstName() {
@@ -108,6 +117,29 @@ public class User implements Serializable {
 		this.enable = enable;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		return prime * (((email == null) && (id == null)) ? 0 : (email.hashCode()));
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof User))
+			return false;
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
+	}
+	
 	public String toString() {
 		return "[firstName: " + firstName + " lastName: " + lastName + " username: " + username + " email: " + email
 				+ " Role: " + role.name() + " status:" + isEnable() + "]";

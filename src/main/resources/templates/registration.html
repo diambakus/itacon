@@ -18,7 +18,7 @@
 			<div class="row">
 				<div
 					class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-					<form role="form" th:object="${userDTO}" th:modelAttribute="userDTO"
+					<form role="form" th:object="${user}" th:modelAttribute="user"
 						th:action="@{/registration}" method="POST" class="form-signin">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" /> <input type="hidden" th:field="*{id}" />

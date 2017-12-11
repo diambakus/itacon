@@ -11,10 +11,25 @@
 
 <title>ITACON - Transação eletrônica de serviços públicos</title>
 <!--/*/ <th:block th:include="headerinc :: head"></th:block> /*/-->
+<link href="#" th:href="@{/css/tiles.css}" rel="stylesheet"
+	media="screen" />
 </head>
 <body>
 	<section layout:fragment="content">
-		<p>This is a paragraph from content page 1</p>
+
+		<div th:if="${#lists.isEmpty(institutions)}">
+			<h3 class="text-success text-center">Sem registro de ministério!</h3>
+		</div>
+		<div th:unless="${#lists.isEmpty(institutions)}">
+			<ul class="tile_output">
+
+				<li th:each="institution: ${institutions}"><a
+					th:href="${'/itacon/institution/show/' + institution.id}"> <span
+						th:text="${institution.name}"> </span>
+				</a></li>
+
+			</ul>
+		</div>
 	</section>
 
 </body>
