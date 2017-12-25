@@ -1,38 +1,25 @@
 package com.kikia.itacon.domain;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-public class Customer implements Serializable {
+public class Individuo extends Contribuinte {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long id;
 	private String firstName;
 	private String lastName;
 	private String BI;
-	private BigDecimal balance;
-	private String phone;
 	private Long NIF;
 
-	public void setId(Long id) {
-		this.id = id;
+	public Individuo() {
+		// TODO Auto-generated constructor stub
 	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long getId() {
-		return id;
-	}
-
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -57,44 +44,19 @@ public class Customer implements Serializable {
 		BI = bI;
 	}
 
-	public BigDecimal getBalance() {
-		return balance;
-	}
-
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
-
-	// @ElementCollection
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
 
 	public Long getNIF() {
 		return NIF;
 	}
 
-	public void setNIF(Long nIF) {
-		NIF = nIF;
-	}
-
-	public Customer() {
-		firstName = null;
-		lastName = null;
-		BI = null;
-		balance = new BigDecimal("0.0");
-		phone = null;
-		NIF = 0L;
+	public void setNIF(Long NIF) {
+		this.NIF = NIF;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		return prime * (((NIF == null) && (BI == null)) ? 0 : (NIF.hashCode() + BI.hashCode()));
+		final int prime = 51;
+		return new HashCodeBuilder(prime, 17).append(BI).append(NIF).toHashCode();
 	}
 
 	@Override
@@ -103,9 +65,9 @@ public class Customer implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Customer))
+		if (!(obj instanceof Individuo))
 			return false;
-		Customer other = (Customer) obj;
+		Individuo other = (Individuo) obj;
 		if (BI == null) {
 			if (other.BI != null)
 				return false;

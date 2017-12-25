@@ -330,3 +330,15 @@ input[type=number] {
    margin-left: -150px;
    margin-top: -150px;
 }
+
+/*BEGIN: Here we set up style of the list of items on the table*/
+.table_customized_style td, .table_customized_style th {
+	border: 1px solid #90a7cc;
+}
+
+.table_customized_style tr:nth-child(even){background-color: #f2f2f2;}
+.table_customized_style tr:hover {background-color: #ddd;}
+.table_customized_style th {
+  background-color: #90a7cc;
+}
+/*END: Here we set up style of the list of items on the table*/

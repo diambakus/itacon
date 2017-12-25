@@ -17,22 +17,26 @@
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 						<h2 class="text-center">Ministérios</h2>
-						<table class="table table-striped">
-							<tr>
-								<th>Nome</th>
-								<th>Código</th>
-								<th>Número de serviços</th>
-							</tr>
-
-							<tr th:each="institutionItem : ${institutions}">
-								<td th:text="${institutionItem.name}"></td>
-								<td th:text="${institutionItem.code}" />
-								<td th:text="${#lists.size(institutionItem.offeredServices)}" />
-							</tr>
+						<table class="table table_customized_style">
+							<thead>
+								<tr>
+									<th>Nome</th>
+									<th>Código</th>
+									<th>Número de serviços</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="institutionItem : ${institutions}">
+									<td th:text="${institutionItem.name}"></td>
+									<td th:text="${institutionItem.code}" />
+									<td th:text="${#lists.size(institutionItem.offeredServices)}" />
+								</tr>
+							</tbody>
 						</table>
 					</div>
 					<div th:if="${#lists.isEmpty(institutions)}">
-					  <h3 class="text-success text-center">Nenhum ministério registrado!</h3>
+						<h3 class="text-success text-center">Nenhum ministério
+							registrado!</h3>
 					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
@@ -40,9 +44,9 @@
 					<!-- set border left to separate form from table -->
 					<!-- 						<div th:include="institution::institution-form"></div> -->
 
-                    <h2 class="text-center">Registra ministério</h2>
-					<form id="institutionForm" role="form"
-						th:object="${institution}" th:modelAttribute="institution"
+					<h2 class="text-center">Registra ministério</h2>
+					<form id="institutionForm" role="form" th:object="${institution}"
+						th:modelAttribute="institution"
 						th:action="@{/institution/addInstitution}" method="POST">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" /> <input type="hidden" th:field="*{id}" />
@@ -56,7 +60,7 @@
 							<button type="reset" class="btn btn-default" id="">Cancelar</button>
 							<button type="submit" class="btn btn-primary" id="">Salvar</button>
 
-							</div>
+						</div>
 						<div class="form-group text-right">
 							<a th:href="@{/offeredservice/create}" type="button"
 								class="btn btn-link">Registrar serviço</a>

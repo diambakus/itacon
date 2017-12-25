@@ -4,9 +4,18 @@ create table basic_entity(
   id LONG IDENTITY PRIMARY KEY
 );
 
-drop table if exists customer;
+drop table if exists contribuinte;
 
-create table customer (
+create table contribuinte (
+  id LONG IDENTITY PRIMARY KEY,
+  balance DECIMAL,
+  phone varchar(300),
+);
+
+
+drop table if exists individuo;
+
+create table individuo (
 id LONG IDENTITY PRIMARY KEY,
 first_name varchar(15),
 last_name varchar(15),
@@ -14,6 +23,16 @@ BI varchar(15),
 balance DECIMAL,
 phone varchar(300),
 NIF LONG
+);
+
+drop table if exists colectiva;
+
+create table colectiva(
+ if LONG IDENTITY PRIMARY KEY,
+ name varchar(30),
+ balance DECIMAL,
+ phone varchar(300),
+ NIPC LONG
 );
 
 drop table if exists institution;

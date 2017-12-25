@@ -19,7 +19,7 @@
 
 					<li class="active"><a th:href="@{/dashboard}"><span
 							class="glyphicon glyphicon-home"></span> Dashboard</a></li>
-					<li><a th:href="@{/customerslist}">Utentes &amp; Saldos</a></li>
+					<li><a th:href="@{/individuo/individuos}">Utentes &amp; Saldos</a></li>
 					<li sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN', 'AUDIT')">
 						<a th:href="@{/institution/institutions}">Ministérios</a>
 					</li>

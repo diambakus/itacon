@@ -14,16 +14,16 @@
 			<div class="row">
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 					<form id="offeredServiceForm" role="form"
-						th:object="${offeredService}"
-						th:modelAttribute="offeredService"
+						th:object="${offeredService}" th:modelAttribute="offeredService"
 						th:action="@{/offeredservice/submit}" method="POST">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" /> <input type="hidden" th:field="*{id}" />
 						<div class="form-group">
 							<label class="control-label" for="offeredservicename">Nome
-								do serviço oferecido</label> <input type="text" id="name"
-								th:field="*{name}" class="form-control input-xs"
-								placeholder="Inserir nome" tabindex="1" />
+								do serviço oferecido</label> <input type="text" id="offeredservicename"
+								name="offeredservicename" th:field="*{name}"
+								class="form-control input-xs" placeholder="Inserir nome"
+								tabindex="1" />
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="offeredserviceprice">Preço</label>
