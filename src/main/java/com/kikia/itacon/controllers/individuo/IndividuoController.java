@@ -9,13 +9,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kikia.itacon.converter.BigDecimalConverter;
 import com.kikia.itacon.domain.Individuo;
 import com.kikia.itacon.domain.User;
 import com.kikia.itacon.services.IndividuoService;
@@ -29,6 +32,11 @@ public class IndividuoController {
 
 	private IndividuoService individuoService;
 	private UserService userService;
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(BigDecimal.class, new BigDecimalConverter());
+	}
 
 	@Autowired
 	public IndividuoController(IndividuoService individuoService, UserService userService) {
@@ -57,36 +65,39 @@ public class IndividuoController {
 		return "searchindividuo";
 	}
 
-	@GetMapping("/searchindividuo/{queriedindividuo}")
-	public String findIndividuo(@PathVariable("queriedindividuo") String identity, Model model) {
+	@GetMapping(value = "info/{id}")
+	public String show(@PathVariable("id") Long id, Model model, Principal principal) {
+		String view = "unexpected_error";
+		logger.debug("showIndividuo()");
+		User user = userService.findByUsername(principal.getName());
 
-		boolean found = false;
-		Individuo individuo, targetIndividuo = null;
-		Iterable<Individuo> allIndividuos = individuoService.listAllIndividuos();
-
-		for (Iterator<Individuo> iterator = allIndividuos.iterator(); iterator.hasNext() && (!found);) {
-			individuo = iterator.next();
-			if (individuo.getBI().equalsIgnoreCase(identity)) {
-				targetIndividuo = individuo;
-				found = true;
-			}
+		if (user != null) {
+			view = "individuo/individuo";
+			model.addAttribute("user", user);
+			Individuo individuo = individuoService.getIndividuoById(id);
+			model.addAttribute("individuo", individuo);
 		}
 
-		model.addAttribute("individuos", targetIndividuo);
-		return "individuos :: individuos";
-	}
-
-	@RequestMapping("individuo/{Id}")
-	public String showIndividuo(@PathVariable("Id") Long id, Model model) {
-		logger.debug("showIndividuo()");
-		model.addAttribute("individuo", individuoService.getIndividuoById(id));
-		return "individuo";
+		return view;
 	}
 
 	@RequestMapping("individuo/edit/{Id}")
 	public String edit(@PathVariable("Id") Long id, Model model) {
 		model.addAttribute("individuo", individuoService.getIndividuoById(id));
 		return "editindividuo";
+	}
+
+	@PostMapping(value = "/updatebalance/{id}")
+	public String updateBalance(@RequestParam(value = "rechargeValue", required = false) BigDecimal rechargeValue,
+			@PathVariable("id") Long id, Model model, @ModelAttribute("Individuo") Individuo individuo) {
+
+		Individuo persistedIndividuo = individuoService.getIndividuoById(id);
+		BigDecimal balance = persistedIndividuo.getBalance();
+		BigDecimal result = balance.add(rechargeValue);
+		persistedIndividuo.setBalance(result);
+		individuoService.saveIndividuo(persistedIndividuo);
+
+		return "redirect:/" + "individuo/info/" + id;
 	}
 
 	@GetMapping(value = "/register")
@@ -102,29 +113,6 @@ public class IndividuoController {
 			viewValue = "unexpected_error";
 		}
 		return viewValue;
-	}
-
-	@RequestMapping("individuo/updatebalace/{Id}")
-	public String showUpdateBalanceForm(@PathVariable("Id") Long Id, Model model) {
-
-		logger.debug("showUpdateBalanceForm()");
-		Individuo individuo = individuoService.getIndividuoById(Id);
-		model.addAttribute("individuo", individuo);
-
-		return "individuoupdatebalance";
-	}
-
-	@PostMapping(value = "individuo/{Id}/updatebalance")
-	public String updateBalance(@RequestParam("recharge_amount") BigDecimal balance, @PathVariable("Id") Long Id,
-			Model model) {
-
-		Individuo individuo = individuoService.getIndividuoById(Id);
-
-		logger.debug("updateBalance()");
-		individuoService.saveIndividuo(individuo);
-		model.addAttribute("individuos", individuoService.listAllIndividuos());
-
-		return "redirect:/dashboard";
 	}
 
 	/*
@@ -148,9 +136,17 @@ public class IndividuoController {
 		return viewValue;
 	}
 
-	@RequestMapping("individuo/delete/{Id}")
-	public String delete(@PathVariable("Id") Long id) {
-		individuoService.deleteIndividuo(id);
-		return "redirect:/individuos";
+	@GetMapping("delete/{id}")
+	public String delete(@PathVariable("id") Long id, Model model, Principal principal) {
+		String viewValue = "redirect:/individuo/individuos";
+		User user = userService.findByUsername(principal.getName());
+		if (user != null) {
+			individuoService.deleteIndividuo(id);
+			model.addAttribute("user", user);
+			model.addAttribute("individuos", individuoService.listAllIndividuos());
+		} else {
+			viewValue = "unexpected_error";
+		}
+		return viewValue;
 	}
 }

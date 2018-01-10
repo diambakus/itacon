@@ -15,7 +15,95 @@
 <body>
 	<section layout:fragment="content">
 
-		
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title"
+							th:text="*{individuo.firstName +' '+ individuo.lastName}"></h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-3 col-lg-3 " align="center">
+								<img alt="Foto do contribuinte" src="" class="" />
+							</div>
+
+
+							<div class=" col-md-6 col-lg-6 ">
+								<table class="table table-user-information">
+									<tbody>
+										<tr>
+											<td>NIF</td>
+											<td th:text="*{individuo.NIF}">NIF</td>
+										</tr>
+										<tr>
+											<td>BI</td>
+											<td th:text="*{individuo.BI}">BI</td>
+										</tr>
+										<tr>
+											<td>Número de telefone</td>
+											<td th:text="*{individuo.phone}"></td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-3 col-lg-3">
+								<div style="display: blocks; text-align: center;">
+									<h4 th:text="*{individuo.balance} + '$'"></h4>
+									<button type="button" class="btn btn-success"
+										data-target="#modal_balance" data-toggle="modal"
+										id="update_balance">Atualizar</button>
+
+									<!-- Modal -->
+									<div class="modal fade" id="modal_balance" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<!-- Modal Body -->
+												<div class="modal-body">
+
+													<form id="individuoForm" role="form"
+														th:action="@{'/individuo/updatebalance/'+${individuo.id}}"
+														method="POST">
+														<input type="hidden" name="${_csrf.parameterName}"
+															value="${_csrf.token}" /> <input type="hidden"
+															th:field="*{id}" />
+														<div class="form-group">
+															<span style="display: inline-block;"> <label
+																style="display: block;" for="rechargeValue">Valor
+																	de recarga</label> <input type="text"
+																class="form-control input-sm" id="rechargeValue"
+																name="rechargeValue" placeholder="Digite o valor..."
+																tabindex="1" />
+															</span>
+														</div>
+														<div style="overflow: hidden; width: 100%;">
+															<div style="float: right">
+																<button type="submit" class="btn btn-success"
+																	tabindex="6">atualizar</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
 	</section>
 
 </body>

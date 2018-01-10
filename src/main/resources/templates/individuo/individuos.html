@@ -121,22 +121,27 @@
 						class="order-table table table_customized_style">
 						<thead>
 							<tr class="table_header_style">
-								<th style="width: 150px;">Nome</th>
-								<th>BI</th>
-								<th>NIF</th>
-								<th style="width: 120px">Telefone</th>
-								<th>Saldo</th>
-								<th>Editar</th>
+								<th class="center-cell-content" style="width: 250px;">Nome</th>
+								<th class="center-cell-content">BI</th>
+								<th class="center-cell-content">NIF</th>
+								<th class="center-cell-content">Telefone</th>
+								<th class="center-cell-content">Editar</th>
+								<th class="center-cell-content">Apagar</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="individuo : ${individuos}">
-								<td th:text="*{individuo.firstName +' '+ individuo.lastName}" />
-								<td th:text="*{individuo.BI}" />
-								<td th:text="*{individuo.NIF}" />
-								<td th:text="*{individuo.phone}" />
-								<td><a th:href="${'/itacon/individuo/saldo/'+individuo.id}">ver saldo</a></td>
-								<td><a th:href="${'/itacon/individuo/atualizar_dados/'+individuo.id}">editar</a></td>
+								<td class="center-cell-content"
+									th:text="*{individuo.firstName +' '+ individuo.lastName}" />
+								<td class="center-cell-content" th:text="*{individuo.BI}" />
+								<td class="center-cell-content" th:text="*{individuo.NIF}" />
+								<td class="center-cell-content" th:text="*{individuo.phone}" />
+								<td class="center-cell-content"><a
+									th:href="${'/itacon/individuo/info/'+individuo.id}"><span
+										class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+								<td class="center-cell-content"><a
+									th:href="${'/itacon/individuo/delete/'+individuo.id}"><span
+										class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
 							</tr>
 						</tbody>
 					</table>

@@ -77,9 +77,12 @@ footer {
 	position: absolute;
 	top: expression(( 0 -( footer.offsetHeight)+(document.documentElement.clientHeight?
 		
+		
 		 document.documentElement.clientHeight: document.body.clientHeight)+(ignoreMe=
 		
+		
 		 document.documentElement.scrollTop? document.documentElement.scrollTop:
+		
 		
 		 document.body.scrollTop))+'px');
 }
@@ -322,13 +325,13 @@ input[type=number] {
 }
 
 .center {
-   width: 300px;
-   height: 300px;
-   position: absolute;
-   left: 50%;
-   top: 50%; 
-   margin-left: -150px;
-   margin-top: -150px;
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -150px;
+	margin-top: -150px;
 }
 
 /*BEGIN: Here we set up style of the list of items on the table*/
@@ -336,9 +339,69 @@ input[type=number] {
 	border: 1px solid #90a7cc;
 }
 
-.table_customized_style tr:nth-child(even){background-color: #f2f2f2;}
-.table_customized_style tr:hover {background-color: #ddd;}
+.table_customized_style tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.table_customized_style tr:hover {
+	background-color: #ddd;
+}
+
 .table_customized_style th {
-  background-color: #90a7cc;
+	background-color: #90a7cc;
+}
+
+.center-cell-content {
+	text-align: center; 
+	vertical-align: middle;
 }
 /*END: Here we set up style of the list of items on the table*/
+
+/*BEGIN: modal update balance style*/
+.modal-balance {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 99999;
+	opacity: 0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+.modal-balance:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.modal-balance>div {
+	width: 25rem;
+	position: relative;
+	margin: 10% auto;
+	padding: 0.9rem 1.2rem;
+	background: #eee;
+}
+
+.close-modal-balance {
+	position: absolute;
+	width: 30px;
+	right: -15px;
+	top: -20px;
+	text-align: center;
+	line-height: 30px;
+	margin-top: 5px;
+	background: #ff4545;
+	border-radius: 50%;
+	font-size: 16px;
+	color: #8d0000;
+}
+
+.close-modal-balance:hover {
+	background: #00d9ff;
+}
+/*END: modal update balance style*/
