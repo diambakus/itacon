@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kikia.itacon.converter.BigDecimalConverter;
 import com.kikia.itacon.domain.OfferedService;
@@ -61,8 +62,9 @@ public class OfferedServiceController {
 	@PostMapping("/submit")
 	public String submitOfferedService(Model model,
 			@Valid @ModelAttribute("offeredService") OfferedService offeredService, BindingResult bindingResult,
-			Principal principal) {
+			Principal principal, RedirectAttributes redirectAttributes) {
 
+		String targetView = "redirect:/offeredservice/create";
 		model.addAttribute("institutions", institutionService.listAllInstitutions());
 
 		User user = userService.findByUsername(principal.getName());
@@ -70,7 +72,16 @@ public class OfferedServiceController {
 			offeredServiceService.saveOfferedService(offeredService);
 			model.addAttribute("user", user);
 		}
-
-		return "undefined";
+		
+		
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("create_item_message","Houve falha ao criar item!");
+	        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+			return targetView;
+		}
+			
+        redirectAttributes.addFlashAttribute("create_item_message","Item criado com sucesso!");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+		return targetView;
 	}
 }
