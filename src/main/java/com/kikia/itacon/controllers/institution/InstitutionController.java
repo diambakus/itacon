@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kikia.itacon.domain.Institution;
 import com.kikia.itacon.domain.User;
@@ -97,16 +98,25 @@ public class InstitutionController {
 	 */
 	@PostMapping(value = "/addInstitution")
 	public String addInstitution(Model model, @ModelAttribute("institution") Institution institution,
-			BindingResult bindingResult, final Principal principal) {
+			BindingResult bindingResult, final Principal principal, RedirectAttributes redirectAttributes) {
 
 		User user = userService.findByUsername(principal.getName());
+		final String targetView = "redirect:/institution/institutions";
 
 		if (user != null) {
 			institutionService.saveInstitution(institution);
 			model.addAttribute("user", user);
 		}
 
-		return "redirect:/institution/institutions";
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("create_item_message","Cadastro de instituição falhou!");
+	        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+			return targetView;
+		}
+			
+        redirectAttributes.addFlashAttribute("create_item_message", institution.getName()+" cadastrada com sucesso!");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+		return targetView;
 	}
 	
 	@GetMapping(value="/show/{id}")

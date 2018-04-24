@@ -61,11 +61,16 @@
 							<button type="submit" class="btn btn-primary" id="">Salvar</button>
 
 						</div>
-						<div class="form-group text-right">
-							<a th:href="@{/offeredservice/create}" type="button"
-								class="btn btn-link">Registrar serviço</a>
-						</div>
 					</form>
+					
+					<div class="text-right">
+						<a th:href="@{/offeredservice/create}" type="button"
+							class="btn btn-link">Registrar serviço</a>
+					</div>
+
+					<div th:if="${create_item_message}"
+						th:text="${create_item_message}"
+						th:class="${'alert ' + alertClass}"></div>
 				</div>
 			</div>
 		</div>
