@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kikia.itacon.domain.User;
 import com.kikia.itacon.services.UserService;
@@ -42,12 +43,16 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/registration")
-	public String registration(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+	public String registration(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
+		
 		try {
+			redirectAttributes.addFlashAttribute("create_item_message", "Usuário registrado. Aguarde aprovação do adminstrador!");
+			redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 			userService.saveUser(user);
 		} catch (DataIntegrityViolationException e) {
 			bindingResult.rejectValue("email", "Email já existe!");

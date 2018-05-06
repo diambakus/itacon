@@ -9,14 +9,21 @@
 </head>
 
 <body>
-	<div th:include="signaccount::header"></div>
-
 	<div class="container">
-
-		<div id="welcome">
-			<div class="wrapper">Welcome!</div>
+		<div class="row">
+			<div th:include="signaccount::header"></div>
 		</div>
-
+		<div class="row">
+			<div class="wrapper">
+				<div th:if="${create_item_message}" th:text="${create_item_message}"
+					th:class="${'alert ' + alertClass}"></div>
+				<div th:unless="${create_item_message}">
+					<div id="welcome">
+						<p>Welcome!</p>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div th:include="headernfooter :: footer"></div>

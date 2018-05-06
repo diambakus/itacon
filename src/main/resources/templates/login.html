@@ -42,6 +42,10 @@
 						<button class="btn btn-primary btn-block" name="Submit"
 							value="Login" type="Submit">Entrar</button>
 					</form>
+					
+					<div th:if="${create_item_message}"
+						th:text="${create_item_message}"
+						th:class="${'alert ' + alertClass}"></div>
 				</div>
 			</div>
 		</div>
