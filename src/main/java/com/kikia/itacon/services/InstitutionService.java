@@ -4,6 +4,8 @@ import com.kikia.itacon.domain.Institution;
 
 public interface InstitutionService {
 
+	public static final String PREFIX = "IN";
+	
 	Iterable<Institution> listAllInstitutions();
 
 	Institution getInstitution(Long Id);
@@ -13,4 +15,8 @@ public interface InstitutionService {
 	void deleteInstitution(Long Id);
 
 	int getNumberOfOfferedServices(Institution institution);
+	
+	Institution findInstitutionByName(String name);
+	
+	Institution findInstitutionByCode(String code);
 }

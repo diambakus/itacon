@@ -14,7 +14,7 @@ public class InstitutionServiceImpl implements InstitutionService {
 
 	private InstitutionRepository institutionRepository;
 	private CodeGenerator codeGeneratorSingleton;
-	private final String PREFIX = "IN";
+	
 
 	@Autowired
 	public InstitutionServiceImpl(InstitutionRepository institutionRepository) {
@@ -53,5 +53,12 @@ public class InstitutionServiceImpl implements InstitutionService {
 	public void deleteInstitution(Long Id) {
 		institutionRepository.delete(Id);
 	}
-
+	
+	public Institution findInstitutionByName(String name) {
+		return institutionRepository.findInstitutionByName(name);
+	}
+	
+	public Institution findInstitutionByCode(String code) {
+		return institutionRepository.findInstitutionByCode(code);
+	}
 }

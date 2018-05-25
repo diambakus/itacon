@@ -42,6 +42,8 @@ create table institution (
  code varchar(10)
 );
 
+alter table if exists institution add constraint UK_name unique (name);
+
 drop table if exists service;
 create table service (
   id LONG IDENTITY PRIMARY KEY,

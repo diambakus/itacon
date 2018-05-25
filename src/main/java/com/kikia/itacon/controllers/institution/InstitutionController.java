@@ -1,11 +1,14 @@
 package com.kikia.itacon.controllers.institution;
 
 import java.security.Principal;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -19,6 +22,7 @@ import com.kikia.itacon.domain.Institution;
 import com.kikia.itacon.domain.User;
 import com.kikia.itacon.services.InstitutionService;
 import com.kikia.itacon.services.UserService;
+import com.kikia.itacon.utils.TextUtils;
 
 @Controller
 @RequestMapping("/institution")
@@ -27,11 +31,14 @@ public class InstitutionController {
 	private InstitutionService institutionService;
 	private UserService userService;
 	private final String institutionsListViewValue = "institutions/institutions";
+	private TextUtils textUtils;
 
 	@Autowired
-	public void InstituteController(InstitutionService institutionService, UserService userService) {
+	public void InstituteController(InstitutionService institutionService, UserService userService,
+			TextUtils textUtils) {
 		this.institutionService = institutionService;
 		this.userService = userService;
+		this.textUtils = textUtils;
 	}
 
 	@InitBinder
@@ -104,24 +111,52 @@ public class InstitutionController {
 		final String targetView = "redirect:/institution/institutions";
 
 		if (user != null) {
-			institutionService.saveInstitution(institution);
+
+			if (textUtils.isValidName(institution.getName())) {
+
+				Institution alreadyPersistedInstitution = institutionService
+						.findInstitutionByName(institution.getName());
+				if (alreadyPersistedInstitution != null) {
+					bindingResult.rejectValue("name", "exist.institution", "Já existe instituição com esse nome!");
+				} else {
+					institutionService.saveInstitution(institution);
+				}
+			} else {
+				bindingResult.rejectValue("name", "invalid.institution",
+						"Nome inválido!\n"
+								+ "Nome deve começar com letra maiúscula.\n Pode conter hífen ou um espaço entre nome composto. "
+								+ "\nSó pode conter letras(acentuadas) um hífen e um espaço");
+			}
 			model.addAttribute("user", user);
 		}
 
-		if(bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("create_item_message","Cadastro de instituição falhou!");
-	        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+		if (bindingResult.hasErrors()) {
+
+			List<ObjectError> errors = bindingResult.getAllErrors();
+
+			for (Iterator<ObjectError> iterator = errors.iterator(); iterator.hasNext();) {
+				ObjectError objectError = (ObjectError) iterator.next();
+
+				if (objectError.getCode().equals("exist.institution")) {
+					redirectAttributes.addFlashAttribute("create_item_message", objectError.getDefaultMessage());
+				} else if (objectError.getCode().equals("invalid.institution")) {
+					redirectAttributes.addFlashAttribute("create_item_message", objectError.getDefaultMessage());
+				} else {
+					redirectAttributes.addFlashAttribute("create_item_message", "Cadastro de instituição falhou!");
+				}
+			}
+			redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
 			return targetView;
 		}
-			
-        redirectAttributes.addFlashAttribute("create_item_message", institution.getName()+" cadastrada com sucesso!");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+		redirectAttributes.addFlashAttribute("create_item_message", institution.getName() + " cadastrada com sucesso!");
+		redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 		return targetView;
 	}
-	
-	@GetMapping(value="/show/{id}")
+
+	@GetMapping(value = "/show/{id}")
 	public String showInstitutionInfo(Model model, Principal principal, @PathVariable("id") Long id) {
-		
+
 		String view = "unexpected_error";
 		User user = userService.findByUsername(principal.getName());
 		if (user != null) {
