@@ -38,18 +38,20 @@ public class InputTextTest {
 		inputName = "Guiné";
 		assertTrue(textUtils.isValidName(inputName));
 	    inputName = "Guiné--Bissau";
-	    assertFalse(textUtils.isValidName(inputName));
+	    assertTrue(textUtils.isValidName(inputName));
 	    inputName = "Guiné- Bissau";
-	    assertFalse(textUtils.isValidName(inputName));
+	    assertTrue(textUtils.isValidName(inputName));
 	    inputName = "Guiné  Bissau";
-	    assertFalse(textUtils.isValidName(inputName));
+	    assertTrue(textUtils.isValidName(inputName));
 	    inputName = "Guiné -Bissau";
-	    assertFalse(textUtils.isValidName(inputName));
+	    assertTrue(textUtils.isValidName(inputName));
 	    inputName = "Guiné-Bis sau";
-	    assertFalse(textUtils.isValidName(inputName));
+	    assertTrue(textUtils.isValidName(inputName));
 	    inputName = "Guiné-Bis-sau";
-	    assertFalse(textUtils.isValidName(inputName));
+	    assertTrue(textUtils.isValidName(inputName));
 	    inputName = "Gu iné Cabral";
+	    assertTrue(textUtils.isValidName(inputName));
+	    inputName = "";
 	    assertFalse(textUtils.isValidName(inputName));
 	}
 }

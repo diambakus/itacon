@@ -23,27 +23,30 @@ public class TextUtils {
 
 		char[] nameCharacters = inputName.toCharArray();
 
+		// Empty name
+		if ((length == 0) || (inputName == null))
+			isValid = false;
 		// Name must start with capital Roman alphabet letter
-		if (((nameCharacters[0] < 'A') || (nameCharacters[0] > 'Z'))
+		else if (((nameCharacters[0] < 'A') || (nameCharacters[0] > 'Z'))
 				&& (!isCapitalAccentedRomanAlphabetLetter(nameCharacters[0])))
 			isValid = false;
 
 		// Name must end with Roman alphabet letter
-		if ((!(((nameCharacters[length - 1] >= 'a') && (nameCharacters[length - 1] <= 'z'))
+		else if ((!(((nameCharacters[length - 1] >= 'a') && (nameCharacters[length - 1] <= 'z'))
 				|| ((nameCharacters[length - 1] >= 'A') && (nameCharacters[length - 1] <= 'Z'))))
 				&& ((!isCapitalAccentedRomanAlphabetLetter(nameCharacters[length - 1]))
 						&& (!isAccentedRomanAlphabetLetter(nameCharacters[length - 1]))))
 			isValid = false;
-
-		for (int i = 1; (i < length - 1) && (isValid); i++) {
-			if ((nameCharacters[i] == ' ') || nameCharacters[i] == '-')
-				continue;
-			else if (((nameCharacters[i] >= 'a') && (nameCharacters[i] <= 'z'))
-					|| ((nameCharacters[i] >= 'A') && (nameCharacters[i] <= 'Z'))
-					|| isCapitalAccentedRomanAlphabetLetter(nameCharacters[i])
-					|| isAccentedRomanAlphabetLetter(nameCharacters[i]))
-				continue;
-		}
+		else
+			for (int i = 1; (i < length - 1) && (isValid); i++) {
+				if ((nameCharacters[i] == ' ') || nameCharacters[i] == '-')
+					continue;
+				else if (((nameCharacters[i] >= 'a') && (nameCharacters[i] <= 'z'))
+						|| ((nameCharacters[i] >= 'A') && (nameCharacters[i] <= 'Z'))
+						|| isCapitalAccentedRomanAlphabetLetter(nameCharacters[i])
+						|| isAccentedRomanAlphabetLetter(nameCharacters[i]))
+					continue;
+			}
 		return isValid;
 	}
 

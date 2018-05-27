@@ -123,9 +123,9 @@ public class InstitutionController {
 				}
 			} else {
 				bindingResult.rejectValue("name", "invalid.institution",
-						"Nome inválido!\n"
-								+ "Nome deve começar com letra maiúscula.\n Pode conter hífen ou um espaço entre nome composto. "
-								+ "\nSó pode conter letras(acentuadas) um hífen e um espaço");
+						"Nome inválido!\n" +"Nome do instituição não pode ser vazio.\n"
+								+ "Deve começar com letra maiúscula.\n Pode conter hífen e espaço. "
+								+ "\nPode ter letras(acentuadas).");
 			}
 			model.addAttribute("user", user);
 		}
