@@ -10,4 +10,6 @@ public interface OfferedServiceService {
 	OfferedService getOfferedServicebyId(Long Id);
 	OfferedService saveOfferedService(OfferedService offeredService);
 	void deleteOfferedService(Long Id);
+	OfferedService findOfferedServiceByName(String name);
+	OfferedService findOfferedServiceByCode(String code);
 }

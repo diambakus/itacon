@@ -52,4 +52,14 @@ public class OfferedServiceServiceImpl implements OfferedServiceService {
 	public void deleteOfferedService(Long id) {
 		offeredServiceRepository.delete(id);
 	}
+	
+	@Override
+	public OfferedService findOfferedServiceByName(String name) {
+		return offeredServiceRepository.findOfferedServiceByName(name);
+	}
+
+	@Override
+	public OfferedService findOfferedServiceByCode(String code) {
+		return offeredServiceRepository.findOfferedServiceByCode(code);
+	}
 }
