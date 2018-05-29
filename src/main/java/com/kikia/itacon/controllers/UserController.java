@@ -1,15 +1,17 @@
 package com.kikia.itacon.controllers;
 
 import java.security.Principal;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,15 +22,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kikia.itacon.domain.User;
 import com.kikia.itacon.services.UserService;
+import com.kikia.itacon.utils.TextUtils;
 
 @Controller
 public class UserController {
 
 	private UserService userService;
+	private TextUtils textUtils;
 
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, TextUtils textUtils) {
 		this.userService = userService;
+		this.textUtils = textUtils;
 	}
 
 	@InitBinder
@@ -46,19 +51,50 @@ public class UserController {
 	public String registration(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
 
-		if (bindingResult.hasErrors()) {
-			return "registration";
-		}
+		String targetView;
 		
-		try {
-			redirectAttributes.addFlashAttribute("create_item_message", "Usuário registrado. Aguarde aprovação do adminstrador!");
-			redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-			userService.saveUser(user);
-		} catch (DataIntegrityViolationException e) {
-			bindingResult.rejectValue("email", "Email já existe!");
+		if (!textUtils.isValidName(user.getFirstName())) {
+			bindingResult.rejectValue("firstName", "invalid_firstName.user", "Nome inserido é inválido!");
+		}
+		if (!textUtils.isValidName(user.getLastName())) {
+			bindingResult.rejectValue("lastName", "invalid_lastName.user", "Sobrenome inserido é inválido!");
+		}
+		if (textUtils.isValidUsername(user.getUsername())) {
+			User alreadyPersistedUser = userService.findByUsername(user.getUsername());
+			if (alreadyPersistedUser != null) {
+				bindingResult.rejectValue("username", "exist_username.user", "Já existe usuário com esse login!");
+			}
+		} else {
+			bindingResult.rejectValue("username", "invalid_username.user", "Login inserido inválido!");
+		}
+		if (textUtils.isValidEmail(user.getEmail())) {
+			User alreadyPersistedUser = userService.getUserByEmail(user.getEmail());
+			if (alreadyPersistedUser != null) {
+				bindingResult.rejectValue("email", "exist_email.user", "Já existe usuário com esse e-mail!");
+			}
+
+		} else {
+			bindingResult.rejectValue("email", "email_invalid.user", "E-mail inserido é inválido!");
 		}
 
-		return "redirect:/";
+		if (bindingResult.hasErrors()) {
+
+			List<ObjectError> errors = bindingResult.getAllErrors();
+
+			for (Iterator<ObjectError> iterator = errors.iterator(); iterator.hasNext();) {
+				ObjectError objectError = (ObjectError) iterator.next();
+				redirectAttributes.addFlashAttribute("create_item_message", objectError.getDefaultMessage());
+			}
+			redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+			targetView = "registration";
+		} else {
+			userService.saveUser(user); // Create the new user
+			redirectAttributes.addFlashAttribute("create_item_message",
+					"Usuário registrado. Aguarde aprovação do adminstrador!");
+			redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+			targetView = "redirect:/";
+		}
+		return targetView;
 	}
 
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
