@@ -83,7 +83,20 @@ public class UserController {
 
 			for (Iterator<ObjectError> iterator = errors.iterator(); iterator.hasNext();) {
 				ObjectError objectError = (ObjectError) iterator.next();
-				redirectAttributes.addFlashAttribute("create_item_message", objectError.getDefaultMessage());
+				
+				if (objectError.getCode().equals("invalid_firstName.user")) {
+					redirectAttributes.addFlashAttribute("invalid_firstname", objectError.getDefaultMessage());
+				}else if (objectError.getCode().equals("invalid_lastName.user")) {
+					redirectAttributes.addFlashAttribute("invalid_laststname", objectError.getDefaultMessage());
+				}else if (objectError.getCode().equals("exist_username.user")) {
+					redirectAttributes.addFlashAttribute("exist_username", objectError.getDefaultMessage());
+				}else if (objectError.getCode().equals("invalid_username.user")) {
+					redirectAttributes.addFlashAttribute("invalid_username", objectError.getDefaultMessage());
+				}else if (objectError.getCode().equals("exist_email.user")) {
+					redirectAttributes.addFlashAttribute("exist_email", objectError.getDefaultMessage());
+				}else if (objectError.getCode().equals("email_invalid.user")) {
+					redirectAttributes.addFlashAttribute("invalid_email", objectError.getDefaultMessage());
+				}
 			}
 			redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
 			targetView = "registration";
